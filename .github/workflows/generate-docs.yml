@@ -45,18 +45,19 @@ jobs:
         shell: bash
         run: ./mvnw -Pgenerate-docs
 
-      - name: Push generated docs with git
-        shell: bash
-        run: |
-          git add docs/*
-          git commit -S -m "New Doc version generated"
-          git push
+      # Der master ist geschützt per PR und verfied commits, also kein push
+      #      - name: Push generated docs with git
+      #        shell: bash
+      #        run: |
+      #          git add docs/*
+      #          git commit -S -m "New Doc version generated"
+      #          git push
 
-# ohne Push kann man auch einen PR erstellen
-#      - name: Create Pull Request
-#        uses: peter-evans/create-pull-request@v4.0.2
-#        with:
-#          title: "New generated docs PR!"
+      # Der master ist geschützt per PR und verfied commits
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v4.0.2
+        with:
+          title: "New generated docs PR!"
 
     strategy:
           matrix:
