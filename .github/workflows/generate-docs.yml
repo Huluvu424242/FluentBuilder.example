@@ -48,6 +48,7 @@ jobs:
       - name: Push generated docs with git
         shell: bash
         run: |
+          git add docs/*
           git commit -S -m "New Doc version generated"
           git push
 
