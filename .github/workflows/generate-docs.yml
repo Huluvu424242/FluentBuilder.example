@@ -45,10 +45,15 @@ jobs:
         shell: bash
         run: ./mvnw -Pgenerate-docs
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v4.0.2
-        with:
-          title: "New generated docs PR!"
+      - name: Push generated docs with git
+        shell: bash
+        run: git push
+
+# ohne Push kann man auch einen PR erstellen
+#      - name: Create Pull Request
+#        uses: peter-evans/create-pull-request@v4.0.2
+#        with:
+#          title: "New generated docs PR!"
 
     strategy:
           matrix:
