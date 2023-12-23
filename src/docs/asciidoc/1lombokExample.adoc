@@ -2,11 +2,18 @@
 
 Zunächst möchte ich ein kurzes Beispiel geben, für einen typischen Builder welcher mit Lombok erstellt wurde.
 
-[source,php]
+[source,java]
 ----
 include::../../main/java/com/github/huluvu424242/person/Person.java[]
 ----
 
-Das ist ein Te
+Die Builderklasse Person.PersonBuilder erlaubt es auf einfache Weise
+Instanzen der Klasse Person zu erzeugen. Wobei die Reihenfolge in der
+die Attribute der Instanz belegt werden keine Rolle spielt.
+Ein Beispiel stellt folgender Test dar:
 
+[source,java]
+----
+include::../../test/java/com/github/huluvu424242/person/PersonBuilderTest.java[]
+----
 
