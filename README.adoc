@@ -12,7 +12,6 @@ image:https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style
 
 
 #Fluent Builder Example
-Template für antlr basierte Compiler in Java
 
 
 ## Projekt Erzeugung
@@ -32,14 +31,3 @@ Template für antlr basierte Compiler in Java
    ```
    mvn wrapper:wrapper -Dtype=script -Dmaven=3.9.6
    ```
-
-## Grammatik erstellen
-
-* https://tomassetti.me/antlr-mega-tutorial/
-
-
-## Test Live
-
-* Use SQL Fiddle to create valid ddl scripts http://sqlfiddle.com/
-* Compile these scripts with this app to plantuml diagrams
-* Check the result diagrams against https://plantuml.com/de/ie-diagram with plantuml online validator https://www.plantuml.com/plantuml/uml/
