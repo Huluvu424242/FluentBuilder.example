@@ -446,9 +446,12 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="lombok-beispiel"><a class="anchor" href="#lombok-beispiel"></a>Lombok Beispiel</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Zunächst möchte ich ein kurzes Beispiel geben, für einen typischen Builder welcher mit Lombok erstellt wurde.</p>
+<p>Zunächst möchte ich ein kurzes Beispiel geben, für einen typischen Builder welcher mit Lombok erstellt wurde.
+Der Source Code des Builders ist nur über das Delombok Feature sichtbar, er wird normalerweise nicht generiert.
+Daher zeige ich hier nur die annotierte Domain Klasse Person und den Unittest welche den PersonBuilder nutzt.</p>
 </div>
 <div class="listingblock">
+<div class="title">Person.java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">package com.github.huluvu424242.person;
 
@@ -506,6 +509,7 @@ die Attribute der Instanz belegt werden keine Rolle spielt.
 Ein Beispiel stellt folgender Test dar:</p>
 </div>
 <div class="listingblock">
+<div class="title">PersonBuilderTest.java</div>
 <div class="content">
 <pre class="highlight"><code class="language-java" data-lang="java">package com.github.huluvu424242.person;
 
