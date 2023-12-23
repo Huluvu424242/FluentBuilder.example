@@ -47,7 +47,9 @@ jobs:
 
       - name: Push generated docs with git
         shell: bash
-        run: git push
+        run: |
+          git commit -S -m "New Doc version generated"
+          git push
 
 # ohne Push kann man auch einen PR erstellen
 #      - name: Create Pull Request
