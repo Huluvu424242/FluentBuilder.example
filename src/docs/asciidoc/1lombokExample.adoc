@@ -8,7 +8,7 @@ Daher zeige ich hier nur die annotierte Domain Klasse Person und den Unittest we
 [source,java]
 .Person.java
 ----
-include::../../main/java/com/github/huluvu424242/person/Person.java[]
+include::../../main/java/com/github/huluvu424242/person/Person.java[lines=28..-1]
 ----
 
 Die Builderklasse Person.PersonBuilder erlaubt es auf einfache Weise
@@ -19,6 +19,6 @@ Ein Beispiel stellt folgender Test dar:
 [source,java]
 .PersonBuilderTest.java
 ----
-include::../../test/java/com/github/huluvu424242/person/PersonBuilderTest.java[]
+include::../../test/java/com/github/huluvu424242/person/PersonBuilderTest.java[lines=28..-1]
 ----
 
