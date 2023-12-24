@@ -1,5 +1,5 @@
 [#status]
-image:https://img.shields.io/badge/License-LGPL%20v3-blue.svg?style=plastic[link="https://www.gnu.org/licenses/lgpl-3.0"]
+image:https://img.shields.io/badge/License-MIT%202023-blue.svg?style=plastic[link="http://www.opensource.org/licenses/mit-license.php"]
 image:https://img.shields.io/github/v/tag/Huluvu424242/fluent-builder.example?include_prereleases&style=plastic[GitHub tag (latest SemVer pre-release), link="https://github.com/Huluvu424242/fluent-builder.example/releases"]
 image:https://img.shields.io/github/downloads/Huluvu424242/fluent-builder.example/latest/total?style=plastic[GitHub release (latest by date), link="https://github.com/Huluvu424242/fluent-builder.example/packages/181948/versions"]
 image:https://maven-badges.herokuapp.com/maven-central/com.github.huluvu424242/fluent-builder.example/badge.svg?style=plastic["Maven Central", link="https://maven-badges.herokuapp.com/maven-central/com.github.huluvu424242/fluent-builder.example"]
