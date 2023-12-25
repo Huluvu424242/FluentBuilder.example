@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>Lombok Beispiel</title>
+<title>Beispiel mit Zuständen</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -443,92 +443,15 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="lombok-beispiel"><a class="anchor" href="#lombok-beispiel"></a>Lombok Beispiel</h2>
+<h2 id="beispiel-mit-zuständen"><a class="anchor" href="#beispiel-mit-zuständen"></a>Beispiel mit Zuständen</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Zunächst möchte ich ein kurzes Beispiel geben, für einen typischen Builder welcher mit Lombok erstellt wurde.
 Der Source Code des Builders ist nur über das Delombok Feature sichtbar, er wird normalerweise nicht generiert.
 Daher zeige ich hier nur die annotierte Domain Klasse Person und den Unittest welche den PersonBuilder nutzt.</p>
 </div>
-<div class="listingblock">
-<div class="title">Person.java</div>
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">import lombok.Builder;
-import lombok.NonNull;
-
-import java.time.LocalDate;
-
-@Builder
-public class Person {
-    @NonNull
-    protected LocalDate birthday;
-
-    @NonNull
-    protected String firstname;
-    @NonNull
-    protected String surename;
-
-    protected String address;
-
-
-}</code></pre>
-</div>
-</div>
 <div class="paragraph">
-<p>Die Builderklasse Person.PersonBuilder erlaubt es auf einfache Weise
-Instanzen der Klasse Person zu erzeugen. Wobei die Reihenfolge in der
-die Attribute der Instanz belegt werden keine Rolle spielt.
-Ein Beispiel stellt folgender Test dar:</p>
-</div>
-<div class="listingblock">
-<div class="title">PersonBuilderTest.java</div>
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
-
-import java.time.LocalDate;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-class PersonBuilderTest {
-
-    @Test
-    @DisplayName("Erzeugt eine gültige Person ohne Adresse")
-    void initPerson() {
-        final Person person = new Person.PersonBuilder()
-                .birthday(LocalDate.of(1969, 1, 1))
-                .firstname("Maik")
-                .surename("Kalauer")
-                .address("Schildbürgerstr. 8, Siebensanden")
-                .build();
-        assertNotNull(person);
-        assertNotNull(person.address);
-    }
-
-    @Test
-    @DisplayName("Erzeugt eine gültige Person ohne Adresse")
-    void initObdachlosePerson() {
-        final Person person = new Person.PersonBuilder()
-                .birthday(LocalDate.of(1969, 1, 1))
-                .firstname("No")
-                .surename("Body")
-                .build();
-        assertNotNull(person);
-        assertNull(person.address);
-    }
-
-    @Test
-    @DisplayName("Erzeugt eine ungültige Person ohne Geburtsdatum")
-    void initInvalidPerson() {
-        final Person.PersonBuilder builder = new Person.PersonBuilder()
-                .firstname("Arno")
-                .surename("Nym")
-                .address("Heinzelmannstr. 8, Mainz");
-        assertNotNull(builder);
-        assertThrows(NullPointerException.class, builder::build);
-    }
-}</code></pre>
-</div>
+<p>Das ist ein Test für den PR Commit Verify</p>
 </div>
 </div>
 </div>
