@@ -1,0 +1,6 @@
+## Beispiel mit Zuständen
+
+Zunächst möchte ich ein kurzes Beispiel geben, für einen typischen Builder welcher mit Lombok erstellt wurde.
+Der Source Code des Builders ist nur über das Delombok Feature sichtbar, er wird normalerweise nicht generiert.
+Daher zeige ich hier nur die annotierte Domain Klasse Person und den Unittest welche den PersonBuilder nutzt.
+

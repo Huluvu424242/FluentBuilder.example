@@ -12,20 +12,10 @@ ifndef::imagesdir[:imagesdir: images]
 
 ## Unterstützung statischer Analysen in einem Testsystem für HTML-Archive
 
-* xref:0motivation.adoc[Vorwort]
-* xref:1lombokExample.adoc[Einführung]
+* xref:0motivation.adoc[Motivation]
+* xref:1lombokExample.adoc[Lombok Beispiel]
+* xref:2states-example.adoc[Beispiel mit Zuständen]
 
-
-* xref:2klassifikation.adoc[Empirische Klassifikation der Fehler und Defekte]
-* xref:3fehleranalyse.adoc[Möglichekeiten der Fehleranalyse]
-* xref:4validationswerkzeuge.adoc[Validationswerkzeuge]
-* xref:5konzept.adoc[Konzeptionelle Lösung der Programmkomponente zur statischen Analyse]
-* xref:6ausblick.adoc[Ausblick]
-* xref:7literatur.adoc[Literaturverzeichnis]
-* xref:Aklassifizierung.adoc[Übersichten zur Klassifizierung]
-* xref:Bbrowser-api.adoc[Schnittstelle zur Steuerung des Browsers]
-* xref:Ctypographie-regeln.adoc[Ausgewählte typographische Regeln]
-* xref:Dhts-doku.adoc[Anwenderdokumentation zum Testsystem HTS]
 
 ## Metadaten
 
