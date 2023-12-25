@@ -1,5 +1,9 @@
 name: Verify PR Commit
-on: [pull_request]
+on:
+  pull_request:
+    types:
+      - opened
+      - edited
 jobs:
   verify:
     runs-on: ubuntu-latest
