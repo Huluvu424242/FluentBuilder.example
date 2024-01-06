@@ -686,13 +686,12 @@ public interface BuilderStages {
             person.registerNumber = registerNumber;
             return this::getPerson;
         }
+    }
 
-        interface RegisteredStage extends BuilderStages {
-            default LegacyPerson build() {
-                return getPerson();
-            }
+    interface RegisteredStage extends BuilderStages {
+        default LegacyPerson build() {
+            return getPerson();
         }
-
     }
 
 }</code></pre>
