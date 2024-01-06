@@ -609,6 +609,30 @@ public class LegacyPerson {
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">LegacyPersonBuilder.java</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public class LegacyPersonBuilder implements BuilderStages {
+
+
+    LegacyPerson person;
+
+    private LegacyPersonBuilder() {
+        this.person = new LegacyPerson();
+    }
+
+    public LegacyPerson getPerson() {
+        return person;
+    }
+
+    public static NewStage builder() {
+        final LegacyPersonBuilder builder = new LegacyPersonBuilder();
+        return () -&gt; builder.person;
+    }
+
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
