@@ -29,3 +29,9 @@ include::../../main/java/com/github/huluvu424242/legacyperson/LegacyPerson.java[
 ----
 include::../../main/java/com/github/huluvu424242/legacyperson/LegacyPersonBuilder.java[lines=28..-1]
 ----
+
+[source,java]
+.BuilderStage.java
+----
+include::../../main/java/com/github/huluvu424242/legacyperson/BuilderStages.java[lines=28..-1]
+----
