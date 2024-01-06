@@ -451,7 +451,163 @@ Der Source Code des Builders ist nur über das Delombok Feature sichtbar, er wir
 Daher zeige ich hier nur die annotierte Domain Klasse Person und den Unittest welche den PersonBuilder nutzt.</p>
 </div>
 <div class="paragraph">
-<p>Das ist ein Test für den PR Commit Verify</p>
+<p>Ein einfaches Beispiel in dem alles selbstgestrickt und über innere Klassen gelöst wurde.
+Ein wesentlicher Nachteil, ist die viele Schreibarbeit und die schlechte Lesbarkeit, da alles in einer Klasse steht.
+Theoretisch lässt sich die Schreibarbeit über Annotationsprozessoren lösen aber wenn man dies selbst tun möchte ohne direkte Bytecode Manipulationen zu nutzen, dann darf man die annotierte Klasse nicht ändern sondern nur die Generate.
+Daher gefällt mit die folgende Lösung nicht, auch wenn sie tut was sie soll.</p>
+</div>
+<div class="listingblock">
+<div class="title">StagedPerson.java</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import lombok.Getter;
+import org.apache.commons.lang3.StringUtils;
+
+import java.time.LocalDate;
+
+
+@Getter
+public class StagedPerson {
+
+    StagedPerson() {
+    }
+
+    protected double birthWeight;
+    protected LocalDate birthday;
+    protected String firstName;
+    protected String sureName;
+
+
+    // State birth
+    protected int standesamtNummer;
+    protected int registerNumber;
+    protected int birthYear;
+
+
+    // State citizen
+    protected String address;
+    protected String taxID;
+
+
+    //
+    // Begin of Stages
+    //
+
+    public interface New {
+        Born birthWeight(final double weight);
+    }
+
+    public interface Born {
+        Register birthday(final LocalDate birthday);
+    }
+
+    public interface Register {
+        Register firstName(final String firstName);
+
+        Register sureName(final String sureName);
+
+        Registered register(final int registerNummer);
+    }
+
+    public interface Registered {
+        StagedPerson build();
+    }
+
+    interface Stages extends New, Born, Register, Registered {
+
+    }
+
+    //
+    // Begin of Builder
+    //
+
+    public static class StagedPersonBuilder implements Stages {
+
+        final StagedPerson person;
+
+        public StagedPersonBuilder() {
+            person = new StagedPerson();
+        }
+
+
+        @Override
+        public Born birthWeight(double birthWeight) {
+            if (birthWeight &lt; 0.1) throw new IllegalArgumentException("birthWeight must be greather then 100g !");
+            person.birthWeight = birthWeight;
+            return this;
+        }
+
+        @Override
+        public Register birthday(LocalDate birthday) {
+            if (birthday == null) throw new IllegalArgumentException("birthday must be not null");
+            person.birthday = birthday;
+            return this;
+        }
+
+        @Override
+        public Register firstName(String firstName) {
+            if (StringUtils.isEmpty(firstName)) throw new IllegalArgumentException("firstName must be not null");
+            person.firstName = firstName;
+            return this;
+        }
+
+        @Override
+        public Register sureName(String sureName) {
+            if (StringUtils.isEmpty(sureName)) throw new IllegalArgumentException("sureName must be not null");
+            person.sureName = sureName;
+            return this;
+        }
+
+        @Override
+        public Registered register(int registerNumber) {
+            if (registerNumber &lt; 1) throw new IllegalArgumentException("registerNumber must be greather then 0!");
+            person.registerNumber = registerNumber;
+            return this;
+        }
+
+        @Override
+        public StagedPerson build() {
+            return person;
+        }
+
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Viel besser gelungen ist mir die folgende Lösung.
+Hier wurde sämtliche Builderlogik in separate Klassen ausgelagert und dadurch sollte sich hier der Einsatz von Annotation Prozessoren lohnen.</p>
+</div>
+<div class="listingblock">
+<div class="title">LegacyPerson.java</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import lombok.Getter;
+
+import java.time.LocalDate;
+
+@Getter
+public class LegacyPerson {
+
+    LegacyPerson() {
+    }
+
+    protected double birthWeight;
+    protected LocalDate birthday;
+    protected String firstName;
+    protected String sureName;
+
+
+    // State birth
+    protected int standesamtNummer;
+    protected int registerNumber;
+    protected int birthYear;
+
+
+    // State citizen
+    protected String address;
+    protected String taxID;
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
