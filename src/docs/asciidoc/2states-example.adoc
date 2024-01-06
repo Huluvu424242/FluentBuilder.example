@@ -4,4 +4,22 @@ Zunächst möchte ich ein kurzes Beispiel geben, für einen typischen Builder we
 Der Source Code des Builders ist nur über das Delombok Feature sichtbar, er wird normalerweise nicht generiert.
 Daher zeige ich hier nur die annotierte Domain Klasse Person und den Unittest welche den PersonBuilder nutzt.
 
-Das ist ein Test für den PR Commit Verify
+Ein einfaches Beispiel in dem alles selbstgestrickt und über innere Klassen gelöst wurde.
+Ein wesentlicher Nachteil, ist die viele Schreibarbeit und die schlechte Lesbarkeit, da alles in einer Klasse steht.
+Theoretisch lässt sich die Schreibarbeit über Annotationsprozessoren lösen aber wenn man dies selbst tun möchte ohne direkte Bytecode Manipulationen zu nutzen, dann darf man die annotierte Klasse nicht ändern sondern nur die Generate.
+Daher gefällt mit die folgende Lösung nicht, auch wenn sie tut was sie soll.
+
+[source,java]
+.StagedPerson.java
+----
+include::../../main/java/com/github/huluvu424242/stagedperson/StagedPerson.java[lines=28..-1]
+----
+
+Viel besser gelungen ist mir die folgende Lösung.
+Hier wurde sämtliche Builderlogik in separate Klassen ausgelagert und dadurch sollte sich hier der Einsatz von Annotation Prozessoren lohnen.
+
+[source,java]
+.LegacyPerson.java
+----
+include::../../main/java/com/github/huluvu424242/legacyperson/LegacyPerson.java[lines=28..-1]
+----
