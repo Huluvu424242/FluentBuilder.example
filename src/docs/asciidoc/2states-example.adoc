@@ -23,3 +23,9 @@ Hier wurde sämtliche Builderlogik in separate Klassen ausgelagert und dadurch s
 ----
 include::../../main/java/com/github/huluvu424242/legacyperson/LegacyPerson.java[lines=28..-1]
 ----
+
+[source,java]
+.LegacyPersonBuilder.java
+----
+include::../../main/java/com/github/huluvu424242/legacyperson/LegacyPersonBuilder.java[lines=28..-1]
+----
