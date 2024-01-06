@@ -40,7 +40,7 @@ public interface BuilderStages {
         default RegisterStage sureName(String sureName) {
             final LegacyPerson person = getPerson();
             if (sureName == null) throw new IllegalArgumentException("sureName must be not null");
-            person.firstName = sureName;
+            person.sureName = sureName;
             return this::getPerson;
         }
 
