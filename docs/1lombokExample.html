@@ -458,20 +458,42 @@ import lombok.NonNull;
 
 import java.time.LocalDate;
 
+
 @Builder
 public class Person {
+
+    // State new
+    @NonNull
+    protected double birthWeight;
     @NonNull
     protected LocalDate birthday;
-
-    @NonNull
     protected String firstname;
-    @NonNull
     protected String surename;
 
+
+    // State birth
+    protected int standesamtNummer;
+    protected int registerNummer;
+    protected int birthYear;
+
+
+    // State citizen
     protected String address;
+    protected String taxID;
 
 
-}</code></pre>
+}
+
+
+//    @NonNull
+//    protected int birthHeight;
+//    @NonNull
+//    protected int birthHeadCirc;
+//    @NonNull
+//    protected LocalDate birthday;
+//    @NonNull
+//    protected String birthAddress;
+//    @NonNull</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -536,7 +558,7 @@ class PersonBuilderTest {
 <div id="footer">
 <div id="footer-text">
 Version 1-SNAPSHOT<br>
-Last updated 24.12.2023 
+Last updated 06.01.2024 
 </div>
 </div>
 </body>
