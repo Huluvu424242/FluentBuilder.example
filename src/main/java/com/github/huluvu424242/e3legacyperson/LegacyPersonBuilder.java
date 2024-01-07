@@ -26,8 +26,7 @@ package com.github.huluvu424242.e3legacyperson;
  * #L%
  */
 
-public class LegacyPersonBuilder implements BuilderStages {
-
+public abstract class LegacyPersonBuilder implements BuilderStages {
 
     LegacyPerson person;
 
@@ -35,12 +34,13 @@ public class LegacyPersonBuilder implements BuilderStages {
         this.person = new LegacyPerson();
     }
 
-    public LegacyPerson getPerson() {
-        return person;
-    }
 
     public static NewStage builder() {
-        final LegacyPersonBuilder builder = new LegacyPersonBuilder();
+        final LegacyPersonBuilder builder = new LegacyPersonBuilder() {
+            public LegacyPerson getPerson() {
+                return person;
+            }
+        };
 
         // old style replaced by lambda
         //    return new NewStage() {
