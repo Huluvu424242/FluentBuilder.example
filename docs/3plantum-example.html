@@ -446,16 +446,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="beispiel-der-plantuml-diagramerstellung"><a class="anchor" href="#beispiel-der-plantuml-diagramerstellung"></a>Beispiel der Plantuml Diagramerstellung</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Plantuml Diagramme sind reine textbasierte Diagramme welche über das Framework plantuml in Grafikformate gewandelt
+<p>Plantuml Diagramme sind rein textbasierte Diagramme welche über das Framework plantuml in Grafikformate gewandelt
 werden. Die textuale Beschreibung der Diagramme soll in diesem Beispiel nicht manuell sondern durch einen Builder
 erfolgen. Die Definition eines Plantumldiagram lässt sich in diverse Bereiche wie Header, Footer, Objektdefinitionen,
 Verbindungen zwischen Objekten etc. unterteilen.</p>
 </div>
 <div class="paragraph">
-<p>Da die Bereiche in einer festgelegten Reihenfolge in der Diagrambeschreibung aufgeführt werden müssen, eignet sollten
+<p>Da die Bereiche in einer festgelegten Reihenfolge in der Diagrambeschreibung aufgeführt werden müssen, sollten
 sich Stage basierte Builder besonders gut eignen. Die zu bildende Instanz ist im Prinzip ein Text, also eine Instanz
 von String. Da bei der Programmierung der Konkatinierung von Strings lieber ein Stringbuilder vorgezogen werden sollte,
-werden wir auch in diesemm Beispiel statt eines Strings einen StringBuilder als zu buildende Instanz verwenden.</p>
+werden wir auch in diesem Beispiel statt eines Strings einen StringBuilder als zu buildende Instanz verwenden.</p>
 </div>
 <div class="paragraph">
 <p>Die verwendbaren fachlichen Methoden wie addHeader etc. werden wir in den Stages definieren und immer auf die
