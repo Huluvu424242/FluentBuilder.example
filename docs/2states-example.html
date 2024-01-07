@@ -576,7 +576,17 @@ public class StagedPerson {
 </div>
 <div class="paragraph">
 <p>Viel besser gelungen ist mir die folgende Lösung.
-Hier wurde sämtliche Builderlogik in separate Klassen ausgelagert und dadurch sollte sich hier der Einsatz von Annotation Prozessoren lohnen.</p>
+Hier wurde sämtliche Builderlogik in separate Klassen ausgelagert und dadurch sollte sich hier der Einsatz von Annotation Prozessoren deutlich mehr lohnen. Eine Unschönheit besitzt aber auch diese Lösung. Um die im Aufbau befindliche
+Instanz von einer Stage zur nächsten zu übertragen, ist der Aufruf einer Methode notwendig. Der Name diese Methode
+würde sich normalerweise nach dem Klassennamen des aufzubauenden Objektes richten z.B. getPerson. Der Name würde dann
+auch der korrekten Semantik entsprechen. Da aber über diese Methode das aufzubauende Objekt zugänglich gemacht wird,
+würde eine getPerson() Methode aber einen Getter darstellen und somit das Builder Pattern verletzen. Beim Builder
+Pattern gibt es nur eine Methode, welche das aufzubauende Objekt zurückgeben darf und das ist die build() Methode.
+Daher wurde die Methode auch so benannt.</p>
+</div>
+<div class="paragraph">
+<p>Leider muss diese build() Methode nun intern beim Stage Wechsel benutzt werden um das bisher erstellte Objekt weiter
+zu geben. Das ist die Unschönheit an dieser Lösung.</p>
 </div>
 <div class="listingblock">
 <div class="title">LegacyPerson.java</div>
@@ -612,8 +622,7 @@ public class LegacyPerson {
 <div class="listingblock">
 <div class="title">LegacyPersonBuilder.java</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public class LegacyPersonBuilder implements BuilderStages {
-
+<pre class="highlight"><code class="language-java" data-lang="java">public abstract class LegacyPersonBuilder implements BuilderStages {
 
     LegacyPerson person;
 
@@ -621,12 +630,22 @@ public class LegacyPerson {
         this.person = new LegacyPerson();
     }
 
-    public LegacyPerson getPerson() {
-        return person;
-    }
 
     public static NewStage builder() {
-        final LegacyPersonBuilder builder = new LegacyPersonBuilder();
+        final LegacyPersonBuilder builder = new LegacyPersonBuilder() {
+            // will be never called, because is internal overridden by lambda in return of builder() method
+            public LegacyPerson build() {
+                throw new UnsupportedOperationException("Call of method forbidden");
+            }
+        };
+
+        // old style replaced by lambda
+        //    return new NewStage() {
+        //        @Override
+        //        public LegacyPerson getPerson() {
+        //            return builder.person;
+        //        }
+        //    };
         return () -&gt; builder.person;
     }
 
@@ -640,15 +659,16 @@ public class LegacyPerson {
 
 // NewStage -&gt; BornStage -&gt; RegisterStage -&gt; RegisteredStage
 public interface BuilderStages {
-    LegacyPerson getPerson();
+    LegacyPerson build();
 
     interface NewStage extends BuilderStages {
 
         default BornStage birthWeight(double birthWeight) {
-            final LegacyPerson person = getPerson();
+            final LegacyPerson person = build();
             if (birthWeight &lt; 0.1) throw new IllegalArgumentException("birthWeight must be greather then 100g !");
             person.birthWeight = birthWeight;
-            return this::getPerson;
+            // unpleasant but necessary
+            return this::build;
         }
 
     }
@@ -656,10 +676,11 @@ public interface BuilderStages {
     interface BornStage extends BuilderStages {
 
         default RegisterStage birthday(LocalDate birthday) {
-            final LegacyPerson person = getPerson();
+            final LegacyPerson person = build();
             if (birthday == null) throw new IllegalArgumentException("birthday must be not null");
             person.birthday = birthday;
-            return this::getPerson;
+            // unpleasant but necessary
+            return this::build;
         }
 
     }
@@ -667,31 +688,30 @@ public interface BuilderStages {
     interface RegisterStage extends BuilderStages {
 
         default RegisterStage firstName(String firstName) {
-            final LegacyPerson person = getPerson();
+            final LegacyPerson person = build();
             if (firstName == null) throw new IllegalArgumentException("firstName must be not null");
             person.firstName = firstName;
-            return this::getPerson;
+            return this;
         }
 
         default RegisterStage sureName(String sureName) {
-            final LegacyPerson person = getPerson();
+            final LegacyPerson person = build();
             if (sureName == null) throw new IllegalArgumentException("sureName must be not null");
             person.sureName = sureName;
-            return this::getPerson;
+            return this;
         }
 
         default RegisteredStage register(int registerNumber) {
-            final LegacyPerson person = getPerson();
+            final LegacyPerson person = build();
             if (registerNumber &lt; 1) throw new IllegalArgumentException("registerNumber must be greather then 0!");
             person.registerNumber = registerNumber;
-            return this::getPerson;
+            // unpleasant but necessary
+            return this::build;
         }
     }
 
     interface RegisteredStage extends BuilderStages {
-        default LegacyPerson build() {
-            return getPerson();
-        }
+
     }
 
 }</code></pre>
@@ -703,7 +723,7 @@ public interface BuilderStages {
 <div id="footer">
 <div id="footer-text">
 Version 1-SNAPSHOT<br>
-Last updated 06.01.2024 
+Last updated 07.01.2024 
 </div>
 </div>
 </body>
