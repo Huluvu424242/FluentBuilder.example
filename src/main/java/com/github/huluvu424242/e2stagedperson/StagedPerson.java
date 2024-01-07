@@ -1,4 +1,4 @@
-package com.github.huluvu424242.stagedperson;
+package com.github.huluvu424242.e2stagedperson;
 
 /*-
  * #%L

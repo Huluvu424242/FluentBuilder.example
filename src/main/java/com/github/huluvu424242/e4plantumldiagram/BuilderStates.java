@@ -1,4 +1,4 @@
-package com.github.huluvu424242.plantuml;
+package com.github.huluvu424242.e4plantumldiagram;
 
 /*-
  * #%L

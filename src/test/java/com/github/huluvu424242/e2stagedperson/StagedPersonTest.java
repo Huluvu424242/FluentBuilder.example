@@ -1,10 +1,10 @@
-package com.github.huluvu424242.plantuml;
+package com.github.huluvu424242.e2stagedperson;
 
 /*-
  * #%L
  * fluent-builder.example
  * %%
- * Copyright (C) 2023 Huluvu424242
+ * Copyright (C) 2023 - 2024 Huluvu424242
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -12,10 +12,10 @@ package com.github.huluvu424242.plantuml;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,32 +26,30 @@ package com.github.huluvu424242.plantuml;
  * #L%
  */
 
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-class PlantumlEntityDiagramBuilderTest {
-
+class StagedPersonTest {
     @Test
-    @DisplayName("ddl model with single entity with one primary key column")
-    void createSimpleModelWithRelation() {
-        final String plantumlEntityDiagram = PlantumlEntityDiagramBuilder
-                .builder()
-                .createUmlHeader()
-                .createEntity("Mitarbeiter")
-                .createColumnMandatory("id")
-                .columnType("varchar2(2000)")
-                .columnNotes("<<PK>>")
-                .next()
-                .createUmlFooter()
+    void createPersonNew() {
+        final LocalDate now = LocalDate.now();
+        final StagedPerson person = new StagedPerson.StagedPersonBuilder()
+                .birthWeight(0.7)
+                .birthday(now)
+                .firstName("Arno")
+                .sureName("Nym")
+                .register(4718161)
                 .build();
-        assertEquals("""
-                @startuml
-                entity Mitarbeiter{
-                * id  varchar2(2000) <<PK>>
-                }
-                @enduml""", plantumlEntityDiagram);
+        assertNotNull(person);
+        assertEquals(0.7, person.getBirthWeight());
+        assertEquals(now, person.getBirthday());
+        assertEquals("Arno", person.getFirstName());
+        assertEquals("Nym", person.getSureName());
+        assertEquals(4718161, person.getRegisterNumber());
     }
 
 }

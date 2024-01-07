@@ -1,4 +1,4 @@
-package com.github.huluvu424242.legacyperson;
+package com.github.huluvu424242.e3legacyperson;
 
 /*-
  * #%L

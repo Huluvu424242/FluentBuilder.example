@@ -1,10 +1,10 @@
-package com.github.huluvu424242.plantuml;
+package com.github.huluvu424242.e3legacyperson;
 
 /*-
  * #%L
  * fluent-builder.example
  * %%
- * Copyright (C) 2023 Huluvu424242
+ * Copyright (C) 2023 - 2024 Huluvu424242
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -12,10 +12,10 @@ package com.github.huluvu424242.plantuml;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,18 +26,29 @@ package com.github.huluvu424242.plantuml;
  * #L%
  */
 
+import lombok.Getter;
 
-public abstract class PlantumlEntityDiagramBuilder implements BuilderStates.NewState {
-    private static int initId = 0;
+import java.time.LocalDate;
 
-    private PlantumlEntityDiagramBuilder() {
+@Getter
+public class LegacyPerson {
+
+    LegacyPerson() {
     }
 
-    public static NewState builder() {
-        // return cur value, then ++
-        final int id = initId++;
-        // derefered via local var is important!
-        return () -> id;
-    }
+    protected double birthWeight;
+    protected LocalDate birthday;
+    protected String firstName;
+    protected String sureName;
+
+
+    // State birth
+    protected int standesamtNummer;
+    protected int registerNumber;
+    protected int birthYear;
+
+
+    // State citizen
+    protected String address;
+    protected String taxID;
 }
-

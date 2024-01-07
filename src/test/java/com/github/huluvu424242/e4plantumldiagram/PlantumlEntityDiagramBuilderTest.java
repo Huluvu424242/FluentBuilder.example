@@ -1,10 +1,10 @@
-package com.github.huluvu424242.legacyperson;
+package com.github.huluvu424242.e4plantumldiagram;
 
 /*-
  * #%L
  * fluent-builder.example
  * %%
- * Copyright (C) 2023 - 2024 Huluvu424242
+ * Copyright (C) 2023 Huluvu424242
  * %%
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,30 +26,32 @@ package com.github.huluvu424242.legacyperson;
  * #L%
  */
 
-public class LegacyPersonBuilder implements BuilderStages {
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-    LegacyPerson person;
+class PlantumlEntityDiagramBuilderTest {
 
-    private LegacyPersonBuilder() {
-        this.person = new LegacyPerson();
-    }
-
-    public LegacyPerson getPerson() {
-        return person;
-    }
-
-    public static NewStage builder() {
-        final LegacyPersonBuilder builder = new LegacyPersonBuilder();
-
-        // old style replaced by lambda
-        //    return new NewStage() {
-        //        @Override
-        //        public LegacyPerson getPerson() {
-        //            return builder.person;
-        //        }
-        //    };
-        return () -> builder.person;
+    @Test
+    @DisplayName("ddl model with single entity with one primary key column")
+    void createSimpleModelWithRelation() {
+        final String plantumlEntityDiagram = PlantumlEntityDiagramBuilder
+                .builder()
+                .createUmlHeader()
+                .createEntity("Mitarbeiter")
+                .createColumnMandatory("id")
+                .columnType("varchar2(2000)")
+                .columnNotes("<<PK>>")
+                .next()
+                .createUmlFooter()
+                .build();
+        assertEquals("""
+                @startuml
+                entity Mitarbeiter{
+                * id  varchar2(2000) <<PK>>
+                }
+                @enduml""", plantumlEntityDiagram);
     }
 
 }

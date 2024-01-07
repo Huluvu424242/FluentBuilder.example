@@ -12,7 +12,7 @@ Daher gefällt mit die folgende Lösung nicht, auch wenn sie tut was sie soll.
 [source,java]
 .StagedPerson.java
 ----
-include::../../main/java/com/github/huluvu424242/stagedperson/StagedPerson.java[lines=28..-1]
+include::../../main/java/com/github/huluvu424242/e2stagedperson/StagedPerson.java[lines=28..-1]
 ----
 
 Viel besser gelungen ist mir die folgende Lösung.
@@ -21,17 +21,17 @@ Hier wurde sämtliche Builderlogik in separate Klassen ausgelagert und dadurch s
 [source,java]
 .LegacyPerson.java
 ----
-include::../../main/java/com/github/huluvu424242/legacyperson/LegacyPerson.java[lines=28..-1]
+include::../../main/java/com/github/huluvu424242/e3legacyperson/LegacyPerson.java[lines=28..-1]
 ----
 
 [source,java]
 .LegacyPersonBuilder.java
 ----
-include::../../main/java/com/github/huluvu424242/legacyperson/LegacyPersonBuilder.java[lines=28..-1]
+include::../../main/java/com/github/huluvu424242/e3legacyperson/LegacyPersonBuilder.java[lines=28..-1]
 ----
 
 [source,java]
 .BuilderStage.java
 ----
-include::../../main/java/com/github/huluvu424242/legacyperson/BuilderStages.java[lines=28..-1]
+include::../../main/java/com/github/huluvu424242/e3legacyperson/BuilderStages.java[lines=28..-1]
 ----

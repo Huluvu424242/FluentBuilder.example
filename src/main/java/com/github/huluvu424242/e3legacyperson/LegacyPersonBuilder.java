@@ -1,4 +1,4 @@
-package com.github.huluvu424242.stagedperson;
+package com.github.huluvu424242.e3legacyperson;
 
 /*-
  * #%L
@@ -12,10 +12,10 @@ package com.github.huluvu424242.stagedperson;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,30 +26,30 @@ package com.github.huluvu424242.stagedperson;
  * #L%
  */
 
-import org.junit.jupiter.api.Test;
+public class LegacyPersonBuilder implements BuilderStages {
 
-import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+    LegacyPerson person;
 
-class StagedPersonTest {
-    @Test
-    void createPersonNew() {
-        final LocalDate now = LocalDate.now();
-        final StagedPerson person = new StagedPerson.StagedPersonBuilder()
-                .birthWeight(0.7)
-                .birthday(now)
-                .firstName("Arno")
-                .sureName("Nym")
-                .register(4718161)
-                .build();
-        assertNotNull(person);
-        assertEquals(0.7, person.getBirthWeight());
-        assertEquals(now, person.getBirthday());
-        assertEquals("Arno", person.getFirstName());
-        assertEquals("Nym", person.getSureName());
-        assertEquals(4718161, person.getRegisterNumber());
+    private LegacyPersonBuilder() {
+        this.person = new LegacyPerson();
+    }
+
+    public LegacyPerson getPerson() {
+        return person;
+    }
+
+    public static NewStage builder() {
+        final LegacyPersonBuilder builder = new LegacyPersonBuilder();
+
+        // old style replaced by lambda
+        //    return new NewStage() {
+        //        @Override
+        //        public LegacyPerson getPerson() {
+        //            return builder.person;
+        //        }
+        //    };
+        return () -> builder.person;
     }
 
 }
