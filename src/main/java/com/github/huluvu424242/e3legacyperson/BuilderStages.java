@@ -62,6 +62,7 @@ public interface BuilderStages {
             final LegacyPerson person = build();
             if (firstName == null) throw new IllegalArgumentException("firstName must be not null");
             person.firstName = firstName;
+            // possible because no stage change
             return this;
         }
 
@@ -69,6 +70,7 @@ public interface BuilderStages {
             final LegacyPerson person = build();
             if (sureName == null) throw new IllegalArgumentException("sureName must be not null");
             person.sureName = sureName;
+            // possible because no stage change
             return this;
         }
 
