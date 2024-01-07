@@ -10,7 +10,7 @@ ifndef::imagesdir[:imagesdir: images]
 :toc-title: Inhalt
 :icons: font
 
-## Unterstützung statischer Analysen in einem Testsystem für HTML-Archive
+## Bau zustandsbasierter Builder
 
 * xref:0motivation.adoc[Motivation]
 * xref:1lombokExample.adoc[Lombok Beispiel]
