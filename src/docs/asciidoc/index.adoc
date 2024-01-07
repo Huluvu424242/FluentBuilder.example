@@ -15,6 +15,7 @@ ifndef::imagesdir[:imagesdir: images]
 * xref:0motivation.adoc[Motivation]
 * xref:1lombokExample.adoc[Lombok Beispiel]
 * xref:2states-example.adoc[Beispiel mit Zuständen]
+* xref:3plantum-example.adoc[Beispiel zur Plantuml Diagramerstellung]
 
 
 ## Metadaten

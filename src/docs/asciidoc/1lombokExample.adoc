@@ -22,3 +22,4 @@ Ein Beispiel stellt folgender Test dar:
 include::../../test/java/com/github/huluvu424242/e1person/PersonBuilderTest.java[lines=28..-1]
 ----
 
+Weiter zum xref:2states-example.adoc[Beispiel mit Zuständen] oder Zurück zur xref:0motivation.adoc[Motivation]
