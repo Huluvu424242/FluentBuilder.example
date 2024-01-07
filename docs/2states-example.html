@@ -446,12 +446,7 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="beispiel-mit-zuständen"><a class="anchor" href="#beispiel-mit-zuständen"></a>Beispiel mit Zuständen</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Zunächst möchte ich ein kurzes Beispiel geben, für einen typischen Builder welcher mit Lombok erstellt wurde.
-Der Source Code des Builders ist nur über das Delombok Feature sichtbar, er wird normalerweise nicht generiert.
-Daher zeige ich hier nur die annotierte Domain Klasse Person und den Unittest welche den PersonBuilder nutzt.</p>
-</div>
-<div class="paragraph">
-<p>Ein einfaches Beispiel in dem alles selbstgestrickt und über innere Klassen gelöst wurde.
+<p>Nun folgt ein einfaches Beispiel in dem alles selbstgestrickt und über innere Klassen gelöst wurde.
 Ein wesentlicher Nachteil, ist die viele Schreibarbeit und die schlechte Lesbarkeit, da alles in einer Klasse steht.
 Theoretisch lässt sich die Schreibarbeit über Annotationsprozessoren lösen aber wenn man dies selbst tun möchte ohne direkte Bytecode Manipulationen zu nutzen, dann darf man die annotierte Klasse nicht ändern sondern nur die Generate.
 Daher gefällt mit die folgende Lösung nicht, auch wenn sie tut was sie soll.</p>
