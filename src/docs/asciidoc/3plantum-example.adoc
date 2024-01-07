@@ -1,17 +1,32 @@
-## Beispiel mit Zuständen
+## Beispiel der Plantuml Diagramerstellung
 
-Viel besser gelungen ist mir die folgende Lösung.
-Hier wurde sämtliche Builderlogik in separate Klassen ausgelagert und dadurch sollte sich hier der Einsatz von Annotation Prozessoren deutlich mehr lohnen. Eine Unschönheit besitzt aber auch diese Lösung. Um die im Aufbau befindliche
-Instanz von einer Stage zur nächsten zu übertragen, ist der Aufruf einer Methode notwendig. Der Name diese Methode
-würde sich normalerweise nach dem Klassennamen des aufzubauenden Objektes richten z.B. getPerson. Der Name würde dann
-auch der korrekten Semantik entsprechen. Da aber über diese Methode das aufzubauende Objekt zugänglich gemacht wird,
-würde eine getPerson() Methode aber einen Getter darstellen und somit das Builder Pattern verletzen. Beim Builder
-Pattern gibt es nur eine Methode, welche das aufzubauende Objekt zurückgeben darf und das ist die build() Methode.
-Daher wurde die Methode auch so benannt.
+Plantuml Diagramme sind reine textbasierte Diagramme welche über das Framework plantuml in Grafikformate gewandelt
+werden. Die textuale Beschreibung der Diagramme soll in diesem Beispiel nicht manuell sondern durch einen Builder
+erfolgen. Die Definition eines Plantumldiagram lässt sich in diverse Bereiche wie Header, Footer, Objektdefinitionen,
+Verbindungen zwischen Objekten etc. unterteilen.
 
-Leider muss diese build() Methode nun intern beim Stage Wechsel benutzt werden um das bisher erstellte Objekt weiter
-zu geben. Das ist die Unschönheit an dieser Lösung.
+Da die Bereiche in einer festgelegten Reihenfolge in der Diagrambeschreibung aufgeführt werden müssen, eignet sollten
+sich Stage basierte Builder besonders gut eignen. Die zu bildende Instanz ist im Prinzip ein Text, also eine Instanz
+von String. Da bei der Programmierung der Konkatinierung von Strings lieber ein Stringbuilder vorgezogen werden sollte,
+werden wir auch in diesemm Beispiel statt eines Strings einen StringBuilder als zu buildende Instanz verwenden.
 
+Die verwendbaren fachlichen Methoden wie addHeader etc. werden wir in den Stages definieren und immer auf die
+append Methode des Stringbuilders abbilden. Es folgt eine Veranschaulichung eines Builders zum Erstellen eines
+minimalen Plantuml Diagrammes.
+
+Als Ergebnis gibt der Builder im Test folgende Diagramm Definition zurück:
+```
+@startuml
+entity Mitarbeiter{
+* id  varchar2(2000) <<PK>>
+}
+@enduml
+```
+
+Dieses kann online über folgenden URL ausprobiert und in eine Grafik umgewandelt werden:
+https://www.plantuml.com/plantuml
+
+Die zugehörigen Quellen sehen wie folgt aus:
 
 [source,java]
 .PlantumlEntityDiagramBuilder.java
@@ -24,5 +39,12 @@ include::../../main/java/com/github/huluvu424242/e4plantumldiagram/PlantumlEntit
 ----
 include::../../main/java/com/github/huluvu424242/e4plantumldiagram/BuilderStates.java[lines=28..-1]
 ----
+
+[source,java]
+.PlantumlEntityDiagramBuilderTest.java
+----
+include::../../test/java/com/github/huluvu424242/e4plantumldiagram/PlantumlEntityDiagramBuilderTest.java[lines=28..-1]
+----
+
 
 Wieder zur xref:index.adoc[Übersicht] oder zurück zum xref:2states-example.adoc[Beispiel mit Zuständen].
