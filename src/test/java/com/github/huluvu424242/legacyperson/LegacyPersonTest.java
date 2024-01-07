@@ -32,8 +32,7 @@ import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 class LegacyPersonTest {
 
@@ -82,6 +81,7 @@ class LegacyPersonTest {
                 .sureName("Nym")
                 .register(4718161)
                 .build();
+        checkValues(person1, null );
 
         final LegacyPerson person2 = builder2
                 .sureName("Nymos")
@@ -93,20 +93,25 @@ class LegacyPersonTest {
     }
 
     void checkValues(final LegacyPerson person1, final LegacyPerson person2) {
+        if(person1==null && person2 == null ) fail();
         // Person 1
-        assertNotNull(person1);
-        assertEquals(0.7, person1.getBirthWeight());
-        assertEquals(now1, person1.getBirthday());
-        assertEquals("Arno", person1.getFirstName());
-        assertEquals("Nym", person1.getSureName());
-        assertEquals(4718161, person1.getRegisterNumber());
+        if(person1!=null) {
+            assertNotNull(person1);
+            assertEquals(0.7, person1.getBirthWeight());
+            assertEquals(now1, person1.getBirthday());
+            assertEquals("Arno", person1.getFirstName());
+            assertEquals("Nym", person1.getSureName());
+            assertEquals(4718161, person1.getRegisterNumber());
+        }
         // Person 2
-        assertNotNull(person1);
-        assertEquals(0.8, person2.getBirthWeight());
-        assertEquals(now1, person2.getBirthday());
-        assertEquals("Anno", person2.getFirstName());
-        assertEquals("Nymos", person2.getSureName());
-        assertEquals(12345, person2.getRegisterNumber());
+        if(person2!=null) {
+            assertNotNull(person1);
+            assertEquals(0.8, person2.getBirthWeight());
+            assertEquals(now1, person2.getBirthday());
+            assertEquals("Anno", person2.getFirstName());
+            assertEquals("Nymos", person2.getSureName());
+            assertEquals(12345, person2.getRegisterNumber());
+        }
     }
 
 }
