@@ -8,7 +8,7 @@ Verbindungen zwischen Objekten etc. unterteilen.
 Da die Bereiche in einer festgelegten Reihenfolge in der Diagrambeschreibung aufgeführt werden müssen, sollten
 sich Stage basierte Builder besonders gut eignen. Die zu bildende Instanz ist im Prinzip ein Text, also eine Instanz
 von String. Da bei der Programmierung der Konkatinierung von Strings lieber ein Stringbuilder vorgezogen werden sollte,
-werden wir auch in diesemm Beispiel statt eines Strings einen StringBuilder als zu buildende Instanz verwenden.
+werden wir auch in diesem Beispiel statt eines Strings einen StringBuilder als zu buildende Instanz verwenden.
 
 Die verwendbaren fachlichen Methoden wie addHeader etc. werden wir in den Stages definieren und immer auf die
 append Methode des Stringbuilders abbilden. Es folgt eine Veranschaulichung eines Builders zum Erstellen eines
