@@ -38,6 +38,7 @@ public interface BuilderStages {
             final LegacyPerson person = build();
             if (birthWeight < 0.1) throw new IllegalArgumentException("birthWeight must be greather then 100g !");
             person.birthWeight = birthWeight;
+            // unpleasant but necessary
             return this::build;
         }
 
@@ -49,6 +50,7 @@ public interface BuilderStages {
             final LegacyPerson person = build();
             if (birthday == null) throw new IllegalArgumentException("birthday must be not null");
             person.birthday = birthday;
+            // unpleasant but necessary
             return this::build;
         }
 
@@ -60,20 +62,21 @@ public interface BuilderStages {
             final LegacyPerson person = build();
             if (firstName == null) throw new IllegalArgumentException("firstName must be not null");
             person.firstName = firstName;
-            return this::build;
+            return this;
         }
 
         default RegisterStage sureName(String sureName) {
             final LegacyPerson person = build();
             if (sureName == null) throw new IllegalArgumentException("sureName must be not null");
             person.sureName = sureName;
-            return this::build;
+            return this;
         }
 
         default RegisteredStage register(int registerNumber) {
             final LegacyPerson person = build();
             if (registerNumber < 1) throw new IllegalArgumentException("registerNumber must be greather then 0!");
             person.registerNumber = registerNumber;
+            // unpleasant but necessary
             return this::build;
         }
     }
