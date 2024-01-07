@@ -84,7 +84,7 @@ public interface BuilderStages {
     }
 
     interface RegisteredStage extends BuilderStages {
-
+        // explizit build() definition not necessary because already defined in BuilderStages
     }
 
 }
