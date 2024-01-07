@@ -5,8 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<meta name="author" content="Doc Writer">
-<title>Inhalt</title>
+<title>Beispiel mit Zuständen</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -441,67 +440,125 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </head>
 <body class="article">
 <div id="header">
-<h1>Inhalt</h1>
-<div class="details">
-<span id="author" class="author">Doc Writer</span><br>
-<span id="email" class="email"><a href="mailto:huluvu424242@gmail.com">huluvu424242@gmail.com</a></span><br>
-<span id="revnumber">version 1-SNAPSHOT,</span>
-<span id="revdate">07.01.2024</span>
-</div>
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="unterstützung-statischer-analysen-in-einem-testsystem-für-html-archive"><a class="anchor" href="#unterstützung-statischer-analysen-in-einem-testsystem-für-html-archive"></a>Unterstützung statischer Analysen in einem Testsystem für HTML-Archive</h2>
+<h2 id="beispiel-mit-zuständen"><a class="anchor" href="#beispiel-mit-zuständen"></a>Beispiel mit Zuständen</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="0motivation.html">Motivation</a></p>
-</li>
-<li>
-<p><a href="1lombokExample.html">Lombok Beispiel</a></p>
-</li>
-<li>
-<p><a href="2states-example.html">Beispiel mit Zuständen</a></p>
-</li>
-<li>
-<p><a href="3plantum-example.html">Beispiel zur Plantuml Diagramerstellung</a></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Viel besser gelungen ist mir die folgende Lösung.
+Hier wurde sämtliche Builderlogik in separate Klassen ausgelagert und dadurch sollte sich hier der Einsatz von Annotation Prozessoren deutlich mehr lohnen. Eine Unschönheit besitzt aber auch diese Lösung. Um die im Aufbau befindliche
+Instanz von einer Stage zur nächsten zu übertragen, ist der Aufruf einer Methode notwendig. Der Name diese Methode
+würde sich normalerweise nach dem Klassennamen des aufzubauenden Objektes richten z.B. getPerson. Der Name würde dann
+auch der korrekten Semantik entsprechen. Da aber über diese Methode das aufzubauende Objekt zugänglich gemacht wird,
+würde eine getPerson() Methode aber einen Getter darstellen und somit das Builder Pattern verletzen. Beim Builder
+Pattern gibt es nur eine Methode, welche das aufzubauende Objekt zurückgeben darf und das ist die build() Methode.
+Daher wurde die Methode auch so benannt.</p>
+</div>
+<div class="paragraph">
+<p>Leider muss diese build() Methode nun intern beim Stage Wechsel benutzt werden um das bisher erstellte Objekt weiter
+zu geben. Das ist die Unschönheit an dieser Lösung.</p>
+</div>
+<div class="listingblock">
+<div class="title">PlantumlEntityDiagramBuilder.java</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">public abstract class PlantumlEntityDiagramBuilder implements BuilderStates.NewState {
+
+    private final StringBuilder builder;
+
+    private PlantumlEntityDiagramBuilder() {
+        this.builder = new StringBuilder();
+    }
+
+    public static NewState builder() {
+        final PlantumlEntityDiagramBuilder builder = new PlantumlEntityDiagramBuilder() {
+            // will be never called, because is internal overridden by lambda in return of builder() method
+            public StringBuilder build() {
+                throw new UnsupportedOperationException("Call of method forbidden");
+            }
+        };
+        // create new interface instance
+        return () -&gt; builder.builder;
+    }
+}</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">BuilderStage.java</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import org.apache.commons.lang3.StringUtils;
+
+public interface BuilderStates {
+    StringBuilder build();
+
+    interface NewState extends BuilderStates {
+
+        default UmlStartState createUmlHeader() {
+            final StringBuilder builder = build();
+            builder.append("@startuml");
+            return this::build;
+        }
+    }
+
+    interface UmlStartState extends BuilderStates {
+        default EntityState createEntity(final String name) {
+            final StringBuilder builder = build();
+            builder.append(String.format("\nentity %s{", name));
+            return this::build;
+        }
+
+        default BuildState createUmlFooter() {
+            final StringBuilder builder = build();
+            builder.append("\n@enduml");
+            return this::build;
+        }
+    }
+
+    interface EntityState extends BuilderStates {
+        default ColumnTypeState createColumnMandatory(final String columnName) {
+            final StringBuilder builder = build();
+            builder.append(String.format("\n* %s ", columnName));
+            return this::build;
+        }
+
+        default ColumnTypeState createColumnNullable(final String columnName) {
+            final StringBuilder builder = build();
+            builder.append(String.format("%n  %s ", columnName));
+            return this::build;
+        }
+
+        default UmlStartState next() {
+            final StringBuilder builder = build();
+            builder.append("\n}");
+            return this::build;
+        }
+    }
+
+    interface ColumnTypeState extends BuilderStates {
+        default ColumnNotesState columnType(final String columnTypeSpec) {
+            final StringBuilder builder = build();
+            builder.append(String.format(" %s", columnTypeSpec));
+            return this::build;
+        }
+    }
+
+    interface ColumnNotesState extends BuilderStates {
+        default EntityState columnNotes(final String columnNotes) {
+            if (!StringUtils.isEmpty(columnNotes)) {
+                final StringBuilder builder = build();
+                builder.append(String.format(" %s", columnNotes));
+            }
+            return this::build;
+        }
+    }
+
+
+    interface BuildState extends BuilderStates {
+        // build() already defined
+    }
+
+}</code></pre>
 </div>
-<div class="sect1">
-<h2 id="metadaten"><a class="anchor" href="#metadaten"></a>Metadaten</h2>
-<div class="sectionbody">
-<div class="dlist">
-<div class="title">Built-in</div>
-<dl>
-<dt class="hdlist1">asciidoctor-version</dt>
-<dd>
-<p>2.0.16</p>
-</dd>
-<dt class="hdlist1">safe-mode-name</dt>
-<dd>
-<p>unsafe</p>
-</dd>
-<dt class="hdlist1">docdir</dt>
-<dd>
-<p>/home/runner/work/FluentBuilder.example/FluentBuilder.example/src/docs/asciidoc</p>
-</dd>
-<dt class="hdlist1">docfile</dt>
-<dd>
-<p>/home/runner/work/FluentBuilder.example/FluentBuilder.example/src/docs/asciidoc/index.adoc</p>
-</dd>
-<dt class="hdlist1">imagesdir</dt>
-<dd>
-<p>./images</p>
-</dd>
-<dt class="hdlist1">docdate</dt>
-<dd>
-<p>07.01.2024</p>
-</dd>
-</dl>
 </div>
 </div>
 </div>
