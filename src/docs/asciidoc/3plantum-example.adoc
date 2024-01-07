@@ -24,3 +24,5 @@ include::../../main/java/com/github/huluvu424242/e4plantumldiagram/PlantumlEntit
 ----
 include::../../main/java/com/github/huluvu424242/e4plantumldiagram/BuilderStates.java[lines=28..-1]
 ----
+
+Wieder zur xref:index.adoc[Übersicht] oder zurück zum xref:2states-example.adoc[Beispiel mit Zuständen].
