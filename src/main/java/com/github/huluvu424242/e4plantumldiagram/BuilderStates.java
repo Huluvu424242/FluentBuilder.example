@@ -26,106 +26,75 @@ package com.github.huluvu424242.e4plantumldiagram;
  * #L%
  */
 
-import java.util.HashMap;
-import java.util.Map;
-
-class InternalAppender {
-
-    private static final Map<Integer, InternalAppender> appenders = new HashMap<>();
-    final StringBuilder builder;
-
-    private InternalAppender() {
-        builder = new StringBuilder();
-    }
-
-    static InternalAppender getAppender(final int id) {
-        final InternalAppender appender = appenders.getOrDefault(id, new InternalAppender());
-        appenders.put(id, appender);
-        return appender;
-    }
-}
+import org.apache.commons.lang3.StringUtils;
 
 public interface BuilderStates {
-    int getId();
-
-    private static StringBuilder getBuilder(final int id) {
-        return InternalAppender.getAppender(id).builder;
-    }
+    StringBuilder build();
 
     interface NewState extends BuilderStates {
 
         default UmlStartState createUmlHeader() {
-            final StringBuilder builder = BuilderStates.getBuilder(getId());
+            final StringBuilder builder = build();
             builder.append("@startuml");
-            return this::getId;
+            return this::build;
         }
     }
 
     interface UmlStartState extends BuilderStates {
         default EntityState createEntity(final String name) {
-            final StringBuilder builder = BuilderStates.getBuilder(getId());
+            final StringBuilder builder = build();
             builder.append(String.format("\nentity %s{", name));
-            return this::getId;
+            return this::build;
         }
 
         default BuildState createUmlFooter() {
-            final StringBuilder builder = BuilderStates.getBuilder(getId());
+            final StringBuilder builder = build();
             builder.append("\n@enduml");
-            return this::getId;
+            return this::build;
         }
     }
 
     interface EntityState extends BuilderStates {
         default ColumnTypeState createColumnMandatory(final String columnName) {
-            final StringBuilder builder = BuilderStates.getBuilder(getId());
+            final StringBuilder builder = build();
             builder.append(String.format("\n* %s ", columnName));
-            return this::getId;
+            return this::build;
         }
 
         default ColumnTypeState createColumnNullable(final String columnName) {
-            final StringBuilder builder = BuilderStates.getBuilder(getId());
-            builder.append(String.format("\n  %s ", columnName));
-            return this::getId;
+            final StringBuilder builder = build();
+            builder.append(String.format("%n  %s ", columnName));
+            return this::build;
         }
 
         default UmlStartState next() {
-            final StringBuilder builder = BuilderStates.getBuilder(getId());
+            final StringBuilder builder = build();
             builder.append("\n}");
-            return this::getId;
+            return this::build;
         }
     }
 
     interface ColumnTypeState extends BuilderStates {
         default ColumnNotesState columnType(final String columnTypeSpec) {
-            final StringBuilder builder = BuilderStates.getBuilder(getId());
+            final StringBuilder builder = build();
             builder.append(String.format(" %s", columnTypeSpec));
-            return this::getId;
+            return this::build;
         }
     }
 
     interface ColumnNotesState extends BuilderStates {
         default EntityState columnNotes(final String columnNotes) {
-            if (columnNotes != null && columnNotes.trim().length() > 0) {
-                final StringBuilder builder = BuilderStates.getBuilder(getId());
+            if (!StringUtils.isEmpty(columnNotes)) {
+                final StringBuilder builder = build();
                 builder.append(String.format(" %s", columnNotes));
             }
-            return this::getId;
+            return this::build;
         }
     }
 
 
     interface BuildState extends BuilderStates {
-        default String build() {
-            return BuilderStates.getBuilder(getId()).toString();
-        }
-    }
-
-    final class LambdaStateHolder {
-        public NewState newState;
-        public UmlStartState umlStartState;
-        public EntityState entityState;
-        public ColumnTypeState columnTypeState;
-        public ColumnNotesState columnNotesState;
+        // build() already defined
     }
 
 }

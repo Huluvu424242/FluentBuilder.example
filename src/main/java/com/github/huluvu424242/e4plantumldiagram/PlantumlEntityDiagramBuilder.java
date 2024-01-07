@@ -28,16 +28,22 @@ package com.github.huluvu424242.e4plantumldiagram;
 
 
 public abstract class PlantumlEntityDiagramBuilder implements BuilderStates.NewState {
-    private static int initId = 0;
+
+    private final StringBuilder builder;
 
     private PlantumlEntityDiagramBuilder() {
+        this.builder = new StringBuilder();
     }
 
     public static NewState builder() {
-        // return cur value, then ++
-        final int id = initId++;
-        // derefered via local var is important!
-        return () -> id;
+        final PlantumlEntityDiagramBuilder builder = new PlantumlEntityDiagramBuilder() {
+            // will be never called, because is internal overridden by lambda in return of builder() method
+            public StringBuilder build() {
+                throw new UnsupportedOperationException("Call of method forbidden");
+            }
+        };
+        // create new interface instance
+        return () -> builder.builder;
     }
 }
 

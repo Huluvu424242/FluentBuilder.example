@@ -36,7 +36,7 @@ class PlantumlEntityDiagramBuilderTest {
     @Test
     @DisplayName("ddl model with single entity with one primary key column")
     void createSimpleModelWithRelation() {
-        final String plantumlEntityDiagram = PlantumlEntityDiagramBuilder
+        final StringBuilder plantumlEntityDiagram = PlantumlEntityDiagramBuilder
                 .builder()
                 .createUmlHeader()
                 .createEntity("Mitarbeiter")
@@ -51,7 +51,7 @@ class PlantumlEntityDiagramBuilderTest {
                 entity Mitarbeiter{
                 * id  varchar2(2000) <<PK>>
                 }
-                @enduml""", plantumlEntityDiagram);
+                @enduml""", plantumlEntityDiagram.toString());
     }
 
 }
