@@ -1,11 +1,11 @@
 ## Beispiel der Plantuml Diagramerstellung
 
-Plantuml Diagramme sind reine textbasierte Diagramme welche über das Framework plantuml in Grafikformate gewandelt
+Plantuml Diagramme sind rein textbasierte Diagramme welche über das Framework plantuml in Grafikformate gewandelt
 werden. Die textuale Beschreibung der Diagramme soll in diesem Beispiel nicht manuell sondern durch einen Builder
 erfolgen. Die Definition eines Plantumldiagram lässt sich in diverse Bereiche wie Header, Footer, Objektdefinitionen,
 Verbindungen zwischen Objekten etc. unterteilen.
 
-Da die Bereiche in einer festgelegten Reihenfolge in der Diagrambeschreibung aufgeführt werden müssen, eignet sollten
+Da die Bereiche in einer festgelegten Reihenfolge in der Diagrambeschreibung aufgeführt werden müssen, sollten
 sich Stage basierte Builder besonders gut eignen. Die zu bildende Instanz ist im Prinzip ein Text, also eine Instanz
 von String. Da bei der Programmierung der Konkatinierung von Strings lieber ein Stringbuilder vorgezogen werden sollte,
 werden wir auch in diesemm Beispiel statt eines Strings einen StringBuilder als zu buildende Instanz verwenden.

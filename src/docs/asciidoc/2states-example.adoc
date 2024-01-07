@@ -13,7 +13,7 @@ include::../../main/java/com/github/huluvu424242/e2stagedperson/StagedPerson.jav
 
 Viel besser gelungen ist mir die folgende Lösung.
 Hier wurde sämtliche Builderlogik in separate Klassen ausgelagert und dadurch sollte sich hier der Einsatz von Annotation Prozessoren deutlich mehr lohnen. Eine Unschönheit besitzt aber auch diese Lösung. Um die im Aufbau befindliche
-Instanz von einer Stage zur nächsten zu übertragen, ist der Aufruf einer Methode notwendig. Der Name diese Methode
+Instanz von einer Stage zur nächsten zu übertragen, ist der Aufruf einer Methode notwendig. Der Name dieser Methode
 würde sich normalerweise nach dem Klassennamen des aufzubauenden Objektes richten z.B. getPerson. Der Name würde dann
 auch der korrekten Semantik entsprechen. Da aber über diese Methode das aufzubauende Objekt zugänglich gemacht wird,
 würde eine getPerson() Methode aber einen Getter darstellen und somit das Builder Pattern verletzen. Beim Builder
