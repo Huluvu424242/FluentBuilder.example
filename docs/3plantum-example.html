@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.16">
-<title>Beispiel mit Zuständen</title>
+<title>Beispiel der Plantuml Diagramerstellung</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -443,21 +443,43 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="beispiel-mit-zuständen"><a class="anchor" href="#beispiel-mit-zuständen"></a>Beispiel mit Zuständen</h2>
+<h2 id="beispiel-der-plantuml-diagramerstellung"><a class="anchor" href="#beispiel-der-plantuml-diagramerstellung"></a>Beispiel der Plantuml Diagramerstellung</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Viel besser gelungen ist mir die folgende Lösung.
-Hier wurde sämtliche Builderlogik in separate Klassen ausgelagert und dadurch sollte sich hier der Einsatz von Annotation Prozessoren deutlich mehr lohnen. Eine Unschönheit besitzt aber auch diese Lösung. Um die im Aufbau befindliche
-Instanz von einer Stage zur nächsten zu übertragen, ist der Aufruf einer Methode notwendig. Der Name diese Methode
-würde sich normalerweise nach dem Klassennamen des aufzubauenden Objektes richten z.B. getPerson. Der Name würde dann
-auch der korrekten Semantik entsprechen. Da aber über diese Methode das aufzubauende Objekt zugänglich gemacht wird,
-würde eine getPerson() Methode aber einen Getter darstellen und somit das Builder Pattern verletzen. Beim Builder
-Pattern gibt es nur eine Methode, welche das aufzubauende Objekt zurückgeben darf und das ist die build() Methode.
-Daher wurde die Methode auch so benannt.</p>
+<p>Plantuml Diagramme sind reine textbasierte Diagramme welche über das Framework plantuml in Grafikformate gewandelt
+werden. Die textuale Beschreibung der Diagramme soll in diesem Beispiel nicht manuell sondern durch einen Builder
+erfolgen. Die Definition eines Plantumldiagram lässt sich in diverse Bereiche wie Header, Footer, Objektdefinitionen,
+Verbindungen zwischen Objekten etc. unterteilen.</p>
 </div>
 <div class="paragraph">
-<p>Leider muss diese build() Methode nun intern beim Stage Wechsel benutzt werden um das bisher erstellte Objekt weiter
-zu geben. Das ist die Unschönheit an dieser Lösung.</p>
+<p>Da die Bereiche in einer festgelegten Reihenfolge in der Diagrambeschreibung aufgeführt werden müssen, eignet sollten
+sich Stage basierte Builder besonders gut eignen. Die zu bildende Instanz ist im Prinzip ein Text, also eine Instanz
+von String. Da bei der Programmierung der Konkatinierung von Strings lieber ein Stringbuilder vorgezogen werden sollte,
+werden wir auch in diesemm Beispiel statt eines Strings einen StringBuilder als zu buildende Instanz verwenden.</p>
+</div>
+<div class="paragraph">
+<p>Die verwendbaren fachlichen Methoden wie addHeader etc. werden wir in den Stages definieren und immer auf die
+append Methode des Stringbuilders abbilden. Es folgt eine Veranschaulichung eines Builders zum Erstellen eines
+minimalen Plantuml Diagrammes.</p>
+</div>
+<div class="paragraph">
+<p>Als Ergebnis gibt der Builder im Test folgende Diagramm Definition zurück:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlight"><code>@startuml
+entity Mitarbeiter{
+* id  varchar2(2000) &lt;&lt;PK&gt;&gt;
+}
+@enduml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Dieses kann online über folgenden URL ausprobiert und in eine Grafik umgewandelt werden:
+<a href="https://www.plantuml.com/plantuml" class="bare">https://www.plantuml.com/plantuml</a></p>
+</div>
+<div class="paragraph">
+<p>Die zugehörigen Quellen sehen wie folgt aus:</p>
 </div>
 <div class="listingblock">
 <div class="title">PlantumlEntityDiagramBuilder.java</div>
@@ -559,6 +581,43 @@ public interface BuilderStates {
 
 }</code></pre>
 </div>
+</div>
+<div class="listingblock">
+<div class="title">PlantumlEntityDiagramBuilderTest.java</div>
+<div class="content">
+<pre class="highlight"><code class="language-java" data-lang="java">import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+class PlantumlEntityDiagramBuilderTest {
+
+    @Test
+    @DisplayName("ddl model with single entity with one primary key column")
+    void createSimpleModelWithRelation() {
+        final StringBuilder plantumlEntityDiagram = PlantumlEntityDiagramBuilder
+                .builder()
+                .createUmlHeader()
+                .createEntity("Mitarbeiter")
+                .createColumnMandatory("id")
+                .columnType("varchar2(2000)")
+                .columnNotes("&lt;&lt;PK&gt;&gt;")
+                .next()
+                .createUmlFooter()
+                .build();
+        assertEquals("""
+                @startuml
+                entity Mitarbeiter{
+                * id  varchar2(2000) &lt;&lt;PK&gt;&gt;
+                }
+                @enduml""", plantumlEntityDiagram.toString());
+    }
+
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Wieder zur <a href="index.html">Übersicht</a> oder zurück zum <a href="2states-example.html">Beispiel mit Zuständen</a>.</p>
 </div>
 </div>
 </div>
