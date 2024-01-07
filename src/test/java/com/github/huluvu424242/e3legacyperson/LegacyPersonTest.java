@@ -12,10 +12,10 @@ package com.github.huluvu424242.e3legacyperson;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- * 
+ *
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -44,6 +44,18 @@ class LegacyPersonTest {
     void setUp() {
         this.now1 = LocalDate.now();
         this.now2 = LocalDate.now();
+    }
+
+    @Test
+    void getPersonNoUnsupportedOpertationExceptionIsRised() {
+        final BuilderStages.NewStage builder1 = LegacyPersonBuilder.builder();
+        final LegacyPerson person = builder1.build();
+        assertNotNull(person);
+        assertEquals(0.0, person.getBirthWeight());
+        assertNull(person.getBirthday());
+        assertNull(person.getFirstName());
+        assertNull(person.getSureName());
+        assertEquals(0, person.getRegisterNumber());
     }
 
     @Test
@@ -81,7 +93,7 @@ class LegacyPersonTest {
                 .sureName("Nym")
                 .register(4718161)
                 .build();
-        checkValues(person1, null );
+        checkValues(person1, null);
 
         final LegacyPerson person2 = builder2
                 .sureName("Nymos")
@@ -93,9 +105,9 @@ class LegacyPersonTest {
     }
 
     void checkValues(final LegacyPerson person1, final LegacyPerson person2) {
-        if(person1==null && person2 == null ) fail();
+        if (person1 == null && person2 == null) fail();
         // Person 1
-        if(person1!=null) {
+        if (person1 != null) {
             assertNotNull(person1);
             assertEquals(0.7, person1.getBirthWeight());
             assertEquals(now1, person1.getBirthday());
@@ -104,7 +116,7 @@ class LegacyPersonTest {
             assertEquals(4718161, person1.getRegisterNumber());
         }
         // Person 2
-        if(person2!=null) {
+        if (person2 != null) {
             assertNotNull(person1);
             assertEquals(0.8, person2.getBirthWeight());
             assertEquals(now1, person2.getBirthday());

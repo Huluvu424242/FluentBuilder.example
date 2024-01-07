@@ -37,8 +37,9 @@ public abstract class LegacyPersonBuilder implements BuilderStages {
 
     public static NewStage builder() {
         final LegacyPersonBuilder builder = new LegacyPersonBuilder() {
-            public LegacyPerson getPerson() {
-                return person;
+            // will be never called, because is internal overridden by lambda in return of builder() method
+            public LegacyPerson build() {
+                throw new UnsupportedOperationException("Call of method forbidden");
             }
         };
 
