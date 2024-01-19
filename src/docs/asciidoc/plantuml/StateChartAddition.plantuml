@@ -1,4 +1,5 @@
 @startuml
+!pragma layout smetana
 [*] -up-> Zahl1: 0-9
 Zahl1 --> Zahl1: 0-9
 Zahl1 --> Plus: +
