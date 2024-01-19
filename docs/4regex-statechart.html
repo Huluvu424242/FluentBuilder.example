@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 2.0.18">
-<title>Beispiel mit Zuständen</title>
+<title>Beispiel RegEx Statechart Builder</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
 /*! Asciidoctor default stylesheet | MIT License | https://asciidoctor.org */
@@ -442,282 +442,90 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="beispiel-mit-zuständen"><a class="anchor" href="#beispiel-mit-zuständen"></a>Beispiel mit Zuständen</h2>
+<h2 id="beispiel-regex-statechart-builder"><a class="anchor" href="#beispiel-regex-statechart-builder"></a>Beispiel RegEx Statechart Builder</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Nun folgt ein einfaches Beispiel in dem alles selbstgestrickt und über innere Klassen gelöst wurde.
-Ein wesentlicher Nachteil, ist die viele Schreibarbeit und die schlechte Lesbarkeit, da alles in einer Klasse steht.
-Theoretisch lässt sich die Schreibarbeit über Annotationsprozessoren lösen aber wenn man dies selbst tun möchte ohne direkte Bytecode Manipulationen zu nutzen, dann darf man die annotierte Klasse nicht ändern sondern nur die Generate.
-Daher gefällt mit die folgende Lösung nicht, auch wenn sie tut was sie soll.</p>
+<p>In den folgenden Abschnitten möchte ich nun das Konzept der FluentBuilder auf Statecharts anwenden. Zunächst möchte ich
+einen sehr einfachen Zustandsautomaten zur Addition verwenden. Dieser Zustandsautomat lässt sich über folgenden
+regulären Ausdruck beschreiben:</p>
 </div>
 <div class="listingblock">
-<div class="title">StagedPerson.java</div>
+<div class="title">Formel für Addition als RegEx</div>
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">import lombok.Getter;
-import org.apache.commons.lang3.StringUtils;
-
-import java.time.LocalDate;
-
-
-@Getter
-public class StagedPerson {
-
-    StagedPerson() {
-    }
-
-    protected double birthWeight;
-    protected LocalDate birthday;
-    protected String firstName;
-    protected String sureName;
-
-
-    // State birth
-    protected int standesamtNummer;
-    protected int registerNumber;
-    protected int birthYear;
-
-
-    // State citizen
-    protected String address;
-    protected String taxID;
-
-
-    //
-    // Begin of Stages
-    //
-
-    public interface New {
-        Born birthWeight(final double weight);
-    }
-
-    public interface Born {
-        Register birthday(final LocalDate birthday);
-    }
-
-    public interface Register {
-        Register firstName(final String firstName);
-
-        Register sureName(final String sureName);
-
-        Registered register(final int registerNummer);
-    }
-
-    public interface Registered {
-        StagedPerson build();
-    }
-
-    interface Stages extends New, Born, Register, Registered {
-
-    }
-
-    //
-    // Begin of Builder
-    //
-
-    public static class StagedPersonBuilder implements Stages {
-
-        final StagedPerson person;
-
-        public StagedPersonBuilder() {
-            person = new StagedPerson();
-        }
-
-
-        @Override
-        public Born birthWeight(double birthWeight) {
-            if (birthWeight &lt; 0.1) throw new IllegalArgumentException("birthWeight must be greather then 100g !");
-            person.birthWeight = birthWeight;
-            return this;
-        }
-
-        @Override
-        public Register birthday(LocalDate birthday) {
-            if (birthday == null) throw new IllegalArgumentException("birthday must be not null");
-            person.birthday = birthday;
-            return this;
-        }
-
-        @Override
-        public Register firstName(String firstName) {
-            if (StringUtils.isEmpty(firstName)) throw new IllegalArgumentException("firstName must be not null");
-            person.firstName = firstName;
-            return this;
-        }
-
-        @Override
-        public Register sureName(String sureName) {
-            if (StringUtils.isEmpty(sureName)) throw new IllegalArgumentException("sureName must be not null");
-            person.sureName = sureName;
-            return this;
-        }
-
-        @Override
-        public Registered register(int registerNumber) {
-            if (registerNumber &lt; 1) throw new IllegalArgumentException("registerNumber must be greather then 0!");
-            person.registerNumber = registerNumber;
-            return this;
-        }
-
-        @Override
-        public StagedPerson build() {
-            return person;
-        }
-
-    }
-
-}</code></pre>
+<pre>/^[0-9]+(\+[0-9])+=/gm</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Viel besser gelungen ist mir die folgende Lösung.
-Hier wurde sämtliche Builderlogik in separate Klassen ausgelagert und dadurch sollte sich hier der Einsatz von Annotation Prozessoren deutlich mehr lohnen. Eine Unschönheit besitzt aber auch diese Lösung. Um die im Aufbau befindliche
-Instanz von einer Stage zur nächsten zu übertragen, ist der Aufruf einer Methode notwendig. Der Name dieser Methode
-würde sich normalerweise nach dem Klassennamen des aufzubauenden Objektes richten z.B. getPerson. Der Name würde dann
-auch der korrekten Semantik entsprechen. Da aber über diese Methode das aufzubauende Objekt zugänglich gemacht wird,
-würde eine getPerson() Methode aber einen Getter darstellen und somit das Builder Pattern verletzen. Beim Builder
-Pattern gibt es nur eine Methode, welche das aufzubauende Objekt zurückgeben darf und das ist die build() Methode.
-Daher wurde die Methode auch so benannt.</p>
+<p>Der Ausdruck soll wie folgt interpretiert werden: Es kann eine Zahl eingegeben werden und zu dieser Zahl können
+beliebige Zahlen addiert werden. Erst wenn ein Gleichheitszeichen eingegeben wird, soll die Formel enden und
+das Ergebnis der Addition vom Interpreter bereitgestellt werden.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="./images/generated/FormelRegEx.svg" alt="FormelRegEx" width="288" height="96">
+</div>
+<div class="title">Figure 1. Syntaxdiagramm zur Formel für Addition</div>
 </div>
 <div class="paragraph">
-<p>Leider muss diese build() Methode nun intern beim Stage Wechsel benutzt werden um das bisher erstellte Objekt weiter
-zu geben. Das ist die Unschönheit an dieser Lösung.</p>
+<p>Dieser Syntaxgraph lässt sich durch einen deterministischen, endlichen Zustandsautomaten realisieren, welcher in folgendem Diagramm dargestellt wird.</p>
 </div>
-<div class="listingblock">
-<div class="title">LegacyPerson.java</div>
+<div class="imageblock">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">import lombok.Getter;
-
-import java.time.LocalDate;
-
-@Getter
-public class LegacyPerson {
-
-    LegacyPerson() {
-    }
-
-    protected double birthWeight;
-    protected LocalDate birthday;
-    protected String firstName;
-    protected String sureName;
-
-
-    // State birth
-    protected int standesamtNummer;
-    protected int registerNumber;
-    protected int birthYear;
-
-
-    // State citizen
-    protected String address;
-    protected String taxID;
-}</code></pre>
+<img src="./images/generated/StateChartAddition.svg" alt="StateChartAddition" width="303" height="206">
 </div>
-</div>
-<div class="listingblock">
-<div class="title">LegacyPersonBuilder.java</div>
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">public abstract class LegacyPersonBuilder implements BuilderStages {
-
-    LegacyPerson person;
-
-    private LegacyPersonBuilder() {
-        this.person = new LegacyPerson();
-    }
-
-
-    public static NewStage builder() {
-        final LegacyPersonBuilder builder = new LegacyPersonBuilder() {
-            // will be never called, because is internal overridden by lambda in return of builder() method
-            public LegacyPerson build() {
-                throw new UnsupportedOperationException("Call of method forbidden");
-            }
-        };
-
-        // old style replaced by lambda
-        //    return new NewStage() {
-        //        @Override
-        //        public LegacyPerson getPerson() {
-        //            return builder.person;
-        //        }
-        //    };
-        return () -&gt; builder.person;
-    }
-
-}</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">BuilderStages.java</div>
-<div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">import java.time.LocalDate;
-
-// NewStage -&gt; BornStage -&gt; RegisterStage -&gt; RegisteredStage
-public interface BuilderStages {
-    LegacyPerson build();
-
-    interface NewStage extends BuilderStages {
-
-        default BornStage birthWeight(double birthWeight) {
-            final LegacyPerson person = build();
-            if (birthWeight &lt; 0.1) throw new IllegalArgumentException("birthWeight must be greather then 100g !");
-            person.birthWeight = birthWeight;
-            // unpleasant but necessary
-            return this::build;
-        }
-
-    }
-
-    interface BornStage extends BuilderStages {
-
-        default RegisterStage birthday(LocalDate birthday) {
-            final LegacyPerson person = build();
-            if (birthday == null) throw new IllegalArgumentException("birthday must be not null");
-            person.birthday = birthday;
-            // unpleasant but necessary
-            return this::build;
-        }
-
-    }
-
-    interface RegisterStage extends BuilderStages {
-
-        default RegisterStage firstName(String firstName) {
-            final LegacyPerson person = build();
-            if (firstName == null) throw new IllegalArgumentException("firstName must be not null");
-            person.firstName = firstName;
-            // possible because no stage change
-            return this;
-        }
-
-        default RegisterStage sureName(String sureName) {
-            final LegacyPerson person = build();
-            if (sureName == null) throw new IllegalArgumentException("sureName must be not null");
-            person.sureName = sureName;
-            // possible because no stage change
-            return this;
-        }
-
-        default RegisteredStage register(int registerNumber) {
-            final LegacyPerson person = build();
-            if (registerNumber &lt; 1) throw new IllegalArgumentException("registerNumber must be greather then 0!");
-            person.registerNumber = registerNumber;
-            // unpleasant but necessary
-            return this::build;
-        }
-    }
-
-    interface RegisteredStage extends BuilderStages {
-        // explizit build() definition not necessary because already defined in BuilderStages
-    }
-
-}</code></pre>
-</div>
+<div class="title">Figure 2. StateChart zur Formel für Addition</div>
 </div>
 <div class="paragraph">
-<p>Weiter zum <a href="3plantum-example.html">Beispiel der Plantuml Diagrammerstellung</a>
-oder zurück zum <a href="1lombokExample.html">Lombok Beispiel</a>.</p>
+<p>Da es sich bei dem Automaten um die Implementierung eines regulären Ausdruckes handelt,
+befinden wir uns in der <a href="https://de.wikipedia.org/wiki/Chomsky-Hierarchie">Chomsky-Hierarchie</a> auf der Ebene regulärer Sprachen, welche dem Chomsky Typ-3 entsprechen.</p>
+</div>
+<table class="tableblock frame-all grid-all fit-content">
+<caption class="title">Table 1. Chomsky Hierarchie<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></caption>
+<colgroup>
+<col>
+<col>
+<col>
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Grammatik</th>
+<th class="tableblock halign-left valign-top">Sprachen</th>
+<th class="tableblock halign-left valign-top">Automaten</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Typ-0</strong> Beliebige formale Grammatik</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">rekursiv aufzählbar (nicht „nur“ rekursiv, die wären entscheidbar!)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Turingmaschine (egal ob deterministisch oder nicht-deterministisch)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Typ-1</strong> Kontextsensitive Grammatik</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kontextsensitiv</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">linear platzbeschränkte nichtdeterministische Turingmaschine</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Typ-2</strong> Kontextfreie Grammatik</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">kontextfrei</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">nichtdeterministischer Kellerautomat</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Typ-3</strong> Reguläre Grammatik</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">regulär</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Endlicher Automat (egal ob deterministisch oder nicht-deterministisch)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Wieder zur <a href="index.html">Übersicht</a> oder zurück zum <a href="3plantum-example.html">Beispiel der Plantuml Diagrammerstellung</a>.</p>
 </div>
 </div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. Quelle Wikipedia: <a href="https://de.wikipedia.org/wiki/Chomsky-Hierarchie#%C3%9Cbersicht" class="bare">https://de.wikipedia.org/wiki/Chomsky-Hierarchie#%C3%9Cbersicht</a>
 </div>
 </div>
 <div id="footer">
