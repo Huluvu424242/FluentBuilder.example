@@ -585,6 +585,7 @@
                                 <!-- *nix :
                                     <graphvizdot>/usr/local/bin/dot</graphvizdot>
                                 -->
+                                <graphvizdot>/usr/local/bin/dot</graphvizdot>
                             </attributes>
                         </configuration>
                         <executions>
