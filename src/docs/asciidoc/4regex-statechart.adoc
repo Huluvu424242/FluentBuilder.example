@@ -7,7 +7,7 @@ regulären Ausdruck beschreiben:
 [regex, RegEx für Formel zur Addition]
 .Formel für Addition als RegEx
 ----
-/^[0-9]+(\+[0-9])*=/gm
+/^[0-9]+(\+[0-9])+=/gm
 ----
 
 Der Ausdruck soll wie folgt interpretiert werden: Es kann eine Zahl eingegeben werden und zu dieser Zahl können
@@ -15,7 +15,7 @@ beliebige Zahlen addiert werden. Erst wenn ein Gleichheitszeichen eingegeben wir
 das Ergebnis der Addition vom Interpreter bereitgestellt werden.
 
 [plantuml,"{generateddir}/FormelRegEx",svg]
-.Syntaxdiagram zur Formel für Addition
+.Syntaxdiagramm zur Formel für Addition
 ----
 include::plantuml/FormelRegEx.plantuml[]
 ----
@@ -23,7 +23,30 @@ include::plantuml/FormelRegEx.plantuml[]
 Da es sich bei dem Automaten um die Implementierung eines regulären Ausdruckes handelt,
 befinden wir uns in der https://de.wikipedia.org/wiki/Chomsky-Hierarchie[Chomsky-Hierarchie] auf der Ebene regulärer Sprachen, welche dem Chomsky Typ-3 entsprechen.
 
+:quelleWikipedia: footnote:[Quelle Wikipedia: https://de.wikipedia.org/wiki/Chomsky-Hierarchie#%C3%9Cbersicht]
 
+[cols="1,1,1"]
+.Chomsky Hierarchie{quelleWikipedia}
+[%autowidth]
+|===
+| Grammatik | Sprachen | Automaten
+
+|**Typ-0** Beliebige formale Grammatik
+|rekursiv aufzählbar (nicht „nur“ rekursiv, die wären entscheidbar!)
+|Turingmaschine (egal ob deterministisch oder nicht-deterministisch)
+
+|**Typ-1** Kontextsensitive Grammatik
+|kontextsensitiv
+|linear platzbeschränkte nichtdeterministische Turingmaschine
+
+|**Typ-2** Kontextfreie Grammatik
+|kontextfrei
+|nichtdeterministischer Kellerautomat
+
+|**Typ-3** Reguläre Grammatik
+|regulär
+|Endlicher Automat (egal ob deterministisch oder nicht-deterministisch)
+|===
 
 
 
