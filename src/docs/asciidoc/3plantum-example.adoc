@@ -31,19 +31,19 @@ Die zugehörigen Quellen sehen wie folgt aus:
 [source,java]
 .PlantumlEntityDiagramBuilder.java
 ----
-include::../../main/java/com/github/huluvu424242/e4plantumldiagram/PlantumlEntityDiagramBuilder.java[lines=28..-1]
+include::../../main/java/com/github/huluvu424242/e3plantumldiagram/PlantumlEntityDiagramBuilder.java[lines=28..-1]
 ----
 
 [source,java]
 .BuilderStage.java
 ----
-include::../../main/java/com/github/huluvu424242/e4plantumldiagram/BuilderStates.java[lines=28..-1]
+include::../../main/java/com/github/huluvu424242/e3plantumldiagram/BuilderStates.java[lines=28..-1]
 ----
 
 [source,java]
 .PlantumlEntityDiagramBuilderTest.java
 ----
-include::../../test/java/com/github/huluvu424242/e4plantumldiagram/PlantumlEntityDiagramBuilderTest.java[lines=28..-1]
+include::../../test/java/com/github/huluvu424242/e3plantumldiagram/PlantumlEntityDiagramBuilderTest.java[lines=28..-1]
 ----
 
 

@@ -1,4 +1,4 @@
-package com.github.huluvu424242.e3legacyperson;
+package com.github.huluvu424242.e2blegacyperson;
 
 /*-
  * #%L
@@ -12,10 +12,10 @@ package com.github.huluvu424242.e3legacyperson;
  * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
  * copies of the Software, and to permit persons to whom the Software is
  * furnished to do so, subject to the following conditions:
- *
+ * 
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the Software.
- *
+ * 
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
  * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
  * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -26,31 +26,29 @@ package com.github.huluvu424242.e3legacyperson;
  * #L%
  */
 
-public abstract class LegacyPersonBuilder implements BuilderStages {
+import lombok.Getter;
 
-    LegacyPerson person;
+import java.time.LocalDate;
 
-    private LegacyPersonBuilder() {
-        this.person = new LegacyPerson();
+@Getter
+public class LegacyPerson {
+
+    LegacyPerson() {
     }
 
+    protected double birthWeight;
+    protected LocalDate birthday;
+    protected String firstName;
+    protected String sureName;
 
-    public static NewStage builder() {
-        final LegacyPersonBuilder builder = new LegacyPersonBuilder() {
-            // will be never called, because is internal overridden by lambda in return of builder() method
-            public LegacyPerson build() {
-                throw new UnsupportedOperationException("Call of method forbidden");
-            }
-        };
 
-        // old style replaced by lambda
-        //    return new NewStage() {
-        //        @Override
-        //        public LegacyPerson getPerson() {
-        //            return builder.person;
-        //        }
-        //    };
-        return () -> builder.person;
-    }
+    // State birth
+    protected int standesamtNummer;
+    protected int registerNumber;
+    protected int birthYear;
 
+
+    // State citizen
+    protected String address;
+    protected String taxID;
 }

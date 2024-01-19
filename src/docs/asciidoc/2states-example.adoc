@@ -8,7 +8,7 @@ Daher gefällt mit die folgende Lösung nicht, auch wenn sie tut was sie soll.
 [source,java]
 .StagedPerson.java
 ----
-include::../../main/java/com/github/huluvu424242/e2stagedperson/StagedPerson.java[lines=28..-1]
+include::../../main/java/com/github/huluvu424242/e2astagedperson/StagedPerson.java[lines=28..-1]
 ----
 
 Viel besser gelungen ist mir die folgende Lösung.
@@ -26,19 +26,19 @@ zu geben. Das ist die Unschönheit an dieser Lösung.
 [source,java]
 .LegacyPerson.java
 ----
-include::../../main/java/com/github/huluvu424242/e3legacyperson/LegacyPerson.java[lines=28..-1]
+include::../../main/java/com/github/huluvu424242/e2blegacyperson/LegacyPerson.java[lines=28..-1]
 ----
 
 [source,java]
 .LegacyPersonBuilder.java
 ----
-include::../../main/java/com/github/huluvu424242/e3legacyperson/LegacyPersonBuilder.java[lines=28..-1]
+include::../../main/java/com/github/huluvu424242/e2blegacyperson/LegacyPersonBuilder.java[lines=28..-1]
 ----
 
 [source,java]
 .BuilderStage.java
 ----
-include::../../main/java/com/github/huluvu424242/e3legacyperson/BuilderStages.java[lines=28..-1]
+include::../../main/java/com/github/huluvu424242/e2blegacyperson/BuilderStages.java[lines=28..-1]
 ----
 
 Weiter zum xref:3plantum-example.adoc[Beispiel der Plantuml Diagrammerstellung]
