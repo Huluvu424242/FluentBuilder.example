@@ -1,15 +1,30 @@
 ## Beispiel RegEx Statechart
 
+In den folgenden Abschnitten möchte ich nun das Konzept der FluentBuilder auf Statecharts anwenden. Zunächst möchte ich
+einen sehr einfachen Zustandsautomaten zur Addition verwenden. Dieser Zustandsautomat lässt sich über folgenden
+regulären Ausdruck beschreiben:
+
 [regex, RegEx für Formel zur Addition]
+.Formel für Addition als RegEx
 ----
 /^[0-9]+(\+[0-9])*=/gm
 ----
 
+Der Ausdruck soll wie folgt interpretiert werden: Es kann eine Zahl eingegeben werden und zu dieser Zahl können
+beliebige Zahlen addiert werden. Erst wenn ein Gleichheitszeichen eingegeben wird, soll die Formel enden und
+das Ergebnis der Addition vom Interpreter bereitgestellt werden.
 
-//referenziert
 [plantuml,"{generateddir}/FormelRegEx",svg]
+.Syntaxdiagram zur Formel für Addition
 ----
 include::plantuml/FormelRegEx.plantuml[]
 ----
+
+Da es sich bei dem Automaten um die Implementierung eines regulären Ausdruckes handelt,
+befinden wir uns in der https://de.wikipedia.org/wiki/Chomsky-Hierarchie[Chomsky-Hierarchie] auf der Ebene regulärer Sprachen, welche dem Chomsky Typ-3 entsprechen.
+
+
+
+
 
 Wieder zur xref:index.adoc[Übersicht] oder zurück zum xref:3plantum-example.adoc[Beispiel der Plantuml Diagrammerstellung].
