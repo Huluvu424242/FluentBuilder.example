@@ -30,6 +30,7 @@ jobs:
     runs-on: ubuntu-latest
     name: Make a new pull request
     steps:
+#      - uses: tlylt/install-graphviz@main  # falls dot installiert werden muss # löschen
       - uses: actions/checkout@v3
         with:
           ref: main
