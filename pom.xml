@@ -13,8 +13,8 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
         <asciidoctor.maven.plugin.version>2.2.1</asciidoctor.maven.plugin.version>
-        <asciidoctorj.version>2.5.2</asciidoctorj.version>
-        <asciidoctorj.diagram.version>2.2.1</asciidoctorj.diagram.version>
+        <asciidoctorj.version>2.5.7</asciidoctorj.version>
+        <asciidoctorj.diagram.version>2.2.9</asciidoctorj.diagram.version>
         <asciidoctorj.pdf.version>1.5.3</asciidoctorj.pdf.version>
         <jruby.version>9.2.17.0</jruby.version>
         <!-- fuer wiederholbare builds mit versioniert -->
@@ -571,6 +571,11 @@
                             <outputDirectory>docs</outputDirectory>
                             <requires>
                                 <require>asciidoctor-diagram</require>
+<!--                                <require>${project.basedir}/src/main/asciidoc-extensions/emoji-inline-macro.rb</require>-->
+<!--                                <require>${project.basedir}/src/main/asciidoc-extensions/gist-block-macro.rb</require>-->
+<!--                                &lt;!&ndash;<require>${project.basedir}/src/main/asciidoc-extensions/lorem-block-macro.rb</require>&ndash;&gt;-->
+<!--                                <require>${project.basedir}/src/main/asciidoc-extensions/shell-session-treeprocessor.rb</require>-->
+<!--                                <require>${project.basedir}/src/main/asciidoc-extensions/tree-block-macro.rb</require>-->
                             </requires>
                             <attributes>
                                 <!-- Example below shows how to specify in this pom instead of System's PATH, the location of dot command of Graphviz, required by PlantUML libraries -->
@@ -592,8 +597,18 @@
                                 <configuration>
                                     <backend>html5</backend>
                                     <preserveDirectories>true</preserveDirectories>
+                                    <resources>
+                                        <resource>
+                                            <directory>src/docs/asciidoc</directory>
+                                            <excludes>
+                                                <!-- exclude plantuml source files from copy -->
+                                                <exclude>**/plantuml/*.*</exclude>
+                                            </excludes>
+                                        </resource>
+                                    </resources>
                                     <attributes>
                                         <imagesdir>./images</imagesdir>
+                                        <generateddir>./generated</generateddir>
                                         <revnumber>${project.version}</revnumber>
                                         <revdate>${maven.build.timestamp}</revdate>
                                         <docdate>${maven.build.timestamp}</docdate>
