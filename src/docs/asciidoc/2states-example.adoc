@@ -36,7 +36,7 @@ include::../../main/java/com/github/huluvu424242/e2blegacyperson/LegacyPersonBui
 ----
 
 [source,java]
-.BuilderStage.java
+.BuilderStages.java
 ----
 include::../../main/java/com/github/huluvu424242/e2blegacyperson/BuilderStages.java[lines=28..-1]
 ----
