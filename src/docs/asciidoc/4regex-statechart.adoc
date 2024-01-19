@@ -12,4 +12,4 @@
 include::plantuml/FormelRegEx.plantuml[]
 ----
 
-Wieder zur xref:index.adoc[Übersicht] oder zurück zum xref:3plantum-example.adoc[Beispiel zur Plantuml Diagrammerstellung].
+Wieder zur xref:index.adoc[Übersicht] oder zurück zum xref:3plantum-example.adoc[Beispiel der Plantuml Diagrammerstellung].

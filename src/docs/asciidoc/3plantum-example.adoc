@@ -1,4 +1,4 @@
-## Beispiel zur Plantuml Diagrammerstellung
+## Beispiel der Plantuml Diagrammerstellung
 
 Plantuml Diagramme sind rein textbasierte Diagramme welche über das Framework plantuml in Grafikformate gewandelt
 werden. Die textuale Beschreibung der Diagramme soll in diesem Beispiel nicht manuell sondern durch einen Builder
