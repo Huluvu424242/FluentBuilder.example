@@ -17,7 +17,7 @@ ifndef::generateddir[:generateddir: generated]
 * xref:1lombokExample.adoc[Lombok Beispiel]
 * xref:2states-example.adoc[Beispiel mit Zuständen]
 * xref:3plantum-example.adoc[Beispiel der Plantuml Diagrammerstellung]
-* xref:4regex-statechart.adoc[Beispiel RegEx Statechart]
+* xref:4regex-statechart.adoc[Beispiel RegEx Statechart Builder]
 
 
 == Metadaten

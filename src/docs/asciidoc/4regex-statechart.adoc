@@ -1,4 +1,4 @@
-== Beispiel RegEx Statechart
+== Beispiel RegEx Statechart Builder
 
 In den folgenden Abschnitten möchte ich nun das Konzept der FluentBuilder auf Statecharts anwenden. Zunächst möchte ich
 einen sehr einfachen Zustandsautomaten zur Addition verwenden. Dieser Zustandsautomat lässt sich über folgenden
@@ -18,6 +18,14 @@ das Ergebnis der Addition vom Interpreter bereitgestellt werden.
 .Syntaxdiagramm zur Formel für Addition
 ----
 include::plantuml/FormelRegEx.plantuml[]
+----
+
+Dieser Syntaxgraph lässt sich durch einen deterministischen, endlichen Zustandsautomaten realisieren, welcher in folgendem Diagramm dargestellt wird.
+
+[plantuml,"{generateddir}/StateChartAddition",svg]
+.StateChart zur Formel für Addition
+----
+include::plantuml/StateChartAddition.plantuml[]
 ----
 
 Da es sich bei dem Automaten um die Implementierung eines regulären Ausdruckes handelt,
