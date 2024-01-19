@@ -1,0 +1,15 @@
+## Beispiel RegEx Statechart
+
+[regex, RegEx für Formel zur Addition]
+----
+/^[0-9]+(\+[0-9])*=/gm
+----
+
+
+//referenziert
+[plantuml,"{generateddir}/FormelRegEx",svg]
+----
+include::plantuml/FormelRegEx.plantuml[]
+----
+
+Wieder zur xref:index.adoc[Übersicht] oder zurück zum xref:3plantum-example.adoc[Beispiel zur Plantuml Diagrammerstellung].

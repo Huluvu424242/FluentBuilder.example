@@ -41,5 +41,5 @@ include::../../main/java/com/github/huluvu424242/e3legacyperson/LegacyPersonBuil
 include::../../main/java/com/github/huluvu424242/e3legacyperson/BuilderStages.java[lines=28..-1]
 ----
 
-Weiter zum xref:3plantum-example.adoc[Beispiel der Plantuml Diagramerstellung]
+Weiter zum xref:3plantum-example.adoc[Beispiel zur Plantuml Diagrammerstellung]
 oder zurück zum xref:1lombokExample.adoc[Lombok Beispiel].

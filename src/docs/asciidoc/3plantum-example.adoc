@@ -1,4 +1,4 @@
-## Beispiel der Plantuml Diagramerstellung
+## Beispiel zur Plantuml Diagrammerstellung
 
 Plantuml Diagramme sind rein textbasierte Diagramme welche über das Framework plantuml in Grafikformate gewandelt
 werden. Die textuale Beschreibung der Diagramme soll in diesem Beispiel nicht manuell sondern durch einen Builder
@@ -47,4 +47,4 @@ include::../../test/java/com/github/huluvu424242/e4plantumldiagram/PlantumlEntit
 ----
 
 
-Wieder zur xref:index.adoc[Übersicht] oder zurück zum xref:2states-example.adoc[Beispiel mit Zuständen].
+Weiter zum xref:4regex-statechart.adoc[Beispiel RegEx Statechart] oder zurück zum xref:2states-example.adoc[Beispiel mit Zuständen].
