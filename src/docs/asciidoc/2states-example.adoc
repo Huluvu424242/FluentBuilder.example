@@ -1,4 +1,4 @@
-## Beispiel mit Zuständen
+== Beispiel mit Zuständen
 
 Nun folgt ein einfaches Beispiel in dem alles selbstgestrickt und über innere Klassen gelöst wurde.
 Ein wesentlicher Nachteil, ist die viele Schreibarbeit und die schlechte Lesbarkeit, da alles in einer Klasse steht.

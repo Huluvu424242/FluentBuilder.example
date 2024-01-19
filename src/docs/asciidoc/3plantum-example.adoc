@@ -1,4 +1,4 @@
-## Beispiel der Plantuml Diagrammerstellung
+== Beispiel der Plantuml Diagrammerstellung
 
 Plantuml Diagramme sind rein textbasierte Diagramme welche über das Framework plantuml in Grafikformate gewandelt
 werden. Die textuale Beschreibung der Diagramme soll in diesem Beispiel nicht manuell sondern durch einen Builder
@@ -15,13 +15,15 @@ append Methode des Stringbuilders abbilden. Es folgt eine Veranschaulichung eine
 minimalen Plantuml Diagrammes.
 
 Als Ergebnis gibt der Builder im Test folgende Diagramm Definition zurück:
-```
+[source]
+.Generierte Plantuml Sourcen für ein Entity Diagram
+----
 @startuml
 entity Mitarbeiter{
 * id  varchar2(2000) <<PK>>
 }
 @enduml
-```
+----
 
 Dieses kann online über folgenden URL ausprobiert und in eine Grafik umgewandelt werden:
 https://www.plantuml.com/plantuml

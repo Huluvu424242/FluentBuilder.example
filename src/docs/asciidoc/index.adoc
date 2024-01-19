@@ -11,7 +11,7 @@ ifndef::generateddir[:generateddir: generated]
 :toc-title: Inhalt
 :icons: font
 
-## Bau zustandsbasierter Builder
+== Bau zustandsbasierter Builder
 
 * xref:0motivation.adoc[Motivation]
 * xref:1lombokExample.adoc[Lombok Beispiel]
@@ -20,7 +20,7 @@ ifndef::generateddir[:generateddir: generated]
 * xref:4regex-statechart.adoc[Beispiel RegEx Statechart]
 
 
-## Metadaten
+== Metadaten
 
 .Built-in
 asciidoctor-version:: {asciidoctor-version}

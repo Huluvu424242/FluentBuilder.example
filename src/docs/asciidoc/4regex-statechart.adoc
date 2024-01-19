@@ -1,4 +1,4 @@
-## Beispiel RegEx Statechart
+== Beispiel RegEx Statechart
 
 In den folgenden Abschnitten möchte ich nun das Konzept der FluentBuilder auf Statecharts anwenden. Zunächst möchte ich
 einen sehr einfachen Zustandsautomaten zur Addition verwenden. Dieser Zustandsautomat lässt sich über folgenden
