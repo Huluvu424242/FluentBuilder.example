@@ -26,9 +26,6 @@ package com.github.huluvu424242.e4additionexpression;
  * #L%
  */
 
-import com.github.huluvu424242.e3plantumldiagram.BuilderStates;
-import com.github.huluvu424242.e3plantumldiagram.PlantumlEntityDiagramBuilder;
-
 public abstract class AdditionFormulaBuilder implements FormulaStates.Zahl1{
 
     FormulaContext formulaContext;
