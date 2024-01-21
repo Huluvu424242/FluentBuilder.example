@@ -450,7 +450,7 @@ einen sehr einfachen Zustandsautomaten zur Addition verwenden. Dieser Zustandsau
 regulären Ausdruck beschreiben:</p>
 </div>
 <div class="listingblock">
-<div class="title">Formel für Addition als RegEx</div>
+<div class="title">Formel für Addition als RegEx<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></div>
 <div class="content">
 <pre>/^[0-9]+(\+[0-9])+=/gm</pre>
 </div>
@@ -480,7 +480,7 @@ das Ergebnis der Addition vom Interpreter bereitgestellt werden.</p>
 befinden wir uns in der <a href="https://de.wikipedia.org/wiki/Chomsky-Hierarchie">Chomsky-Hierarchie</a> auf der Ebene regulärer Sprachen, welche dem Chomsky Typ-3 entsprechen.</p>
 </div>
 <table class="tableblock frame-all grid-all fit-content">
-<caption class="title">Table 1. Chomsky Hierarchie<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup></caption>
+<caption class="title">Table 1. Chomsky Hierarchie<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup></caption>
 <colgroup>
 <col>
 <col>
@@ -532,7 +532,8 @@ befinden wir uns in der <a href="https://de.wikipedia.org/wiki/Chomsky-Hierarchi
 
     public static FormulaStates.Zahl1 builder() {
         final AdditionFormulaBuilder builder = new AdditionFormulaBuilder() {
-            // will be never called, because is internal overridden by lambda in return of builder() method
+            // will be never called
+            // because is internal overridden by lambda in return of builder() method
             public FormulaContext build() {
                 throw new UnsupportedOperationException("Call of method forbidden");
             }
@@ -662,13 +663,16 @@ class AdditionFormulaBuilderTest {
 <div id="footnotes">
 <hr>
 <div class="footnote" id="_footnotedef_1">
-<a href="#_footnoteref_1">1</a>. Quelle Wikipedia: <a href="https://de.wikipedia.org/wiki/Chomsky-Hierarchie#%C3%9Cbersicht" class="bare">https://de.wikipedia.org/wiki/Chomsky-Hierarchie#%C3%9Cbersicht</a>
+<a href="#_footnoteref_1">1</a>. Quelle regex101: <a href="https://regex101.com/r/9Bviwn/1" class="bare">https://regex101.com/r/9Bviwn/1</a>
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. Quelle Wikipedia: <a href="https://de.wikipedia.org/wiki/Chomsky-Hierarchie#%C3%9Cbersicht" class="bare">https://de.wikipedia.org/wiki/Chomsky-Hierarchie#%C3%9Cbersicht</a>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
 Version 1-SNAPSHOT<br>
-Last updated 20.01.2024 
+Last updated 21.01.2024 
 </div>
 </div>
 </body>
