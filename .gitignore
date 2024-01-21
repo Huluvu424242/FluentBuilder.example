@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/windows,linux,intellij+all,eclipse,maven,java,git
 # Edit at https://www.toptal.com/developers/gitignore?templates=windows,linux,intellij+all,eclipse,maven,java,git
 
+### asciidoctor
+docs/.asciidoctor/
+
 ### Eclipse ###
 .metadata
 bin/
