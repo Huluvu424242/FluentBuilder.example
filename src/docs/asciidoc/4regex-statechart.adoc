@@ -31,6 +31,8 @@ include::plantuml/StateChartAddition.plantuml[]
 Da es sich bei dem Automaten um die Implementierung eines regulären Ausdruckes handelt,
 befinden wir uns in der https://de.wikipedia.org/wiki/Chomsky-Hierarchie[Chomsky-Hierarchie] auf der Ebene regulärer Sprachen, welche dem Chomsky Typ-3 entsprechen.
 
+Zur Vertiefung des Themas lesen Sie gern auch meinen xref:4exkurs-regex-matching.adoc[Exkurs zum Matching regulärer Ausdrücke].
+
 :quelleWikipedia: footnote:[Quelle Wikipedia: https://de.wikipedia.org/wiki/Chomsky-Hierarchie#%C3%9Cbersicht]
 
 [cols="1,1,1"]

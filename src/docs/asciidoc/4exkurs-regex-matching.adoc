@@ -1,0 +1,161 @@
+== Exkurs zum Matching regulärer Ausdrücke
+
+=== Einhaltung der regulären Sprachen
+
+Wie bereits erwähnt basieren reguläre Ausdrücke auf regulären Grammatiken, also Sprachen des Chomsky Typ-3.
+
+Sie lassen sich über den
+link:https://en.wikipedia.org/wiki/Thompson%27s_construction[Thompson's construction algorithm]
+als ein nicht deterministischer endlicher Zustandsautomat (none-deterministic definite automata = *NFA*) darstellen.
+Weiterhin lässt sich auch jeder NFA nach dem
+link:https://en.wikipedia.org/wiki/Kleene%27s_algorithm[Kleene's algorithm] wieder in eine reguläre Expression
+überführen.
+
+Die Darstellung eines regulären Ausdruckes als ein Zustandsautomat oder Acceptor, ist nur eine andere Form der
+Darstellung welche nichts an der Art der Sprache (Chomsky Typ-3 = reguläre Sprachen) ändert.
+Zu jeder regulären Sprache existiert auch ein minimaler deterministischer endlicher Zustandsautomat
+(deterministic definite automata = *DFA*), welcher diese akzeptiert
+(link:https://en.wikipedia.org/wiki/DFA_minimization#Minimal_DFA[minimaler DFA]).
+
+Zu jedem NFA existiert nach Michael O. Rabin and Dana Scott auch ein äquivalenter DFA. Die Überführung eines NFA in einen DFA
+kann nach der link:https://en.wikipedia.org/wiki/Powerset_construction[Rabin–Scott powerset construction] Methode erfolgen.
+
+Um einen DFA in einen minimalen DFA zu überführen existieren diverse Methoden:
+
+* Hopcroft's algorithm
+* Moore's algorithm
+* Brzozowski's algorithm
+
+(Für weitere Details lesen Sie die Quelle unter https://en.wikipedia.org/wiki/DFA_minimization#Minimal_DFA)
+
+Ein DFA wird auch deterministischer endlicher Acceptor genannt, da er in der Lage ist eine reguläre Sprache zu akzeptieren. Das bedeutet, wenn man vom Startzustand
+ausgehend einen Strom von Eingabezeichen auf den DFA anwendet, so werden dadurch
+Zustandsübergänge hervorgerufen. Wenn der Automat sich nach der Anwendung des letzten Eingabezeichens im finalen Zustand befindet, so spricht man davon, dass der Automat die Eingabe akzeptiert hat.
+
+In Bezug auf das Matching mit regulären Ausdrücken lässt sich daher sagen:
+Wird ein auf einen DFA (welcher einen regulären Ausdruck beschreibt) ein Input
+angewendet und der DFA akzeptiert diesen Input, so matcht die Eingabe mit dem
+regulären Ausdruck.
+
+Demnach ist es in der Theorie sehr einfach herauszufinden ob ein Input einem
+regulären Ausdruck entspricht oder nicht. Man muss zunächst den regulären
+Ausdruck in einen DFA überführen und darauf den Input anwenden.
+
+In der Praxis ist dies nicht ganz so einfach, da die Software in der Regel
+dynamisch aus einem regulären Ausdruck einen DFA erstellen und anschließend
+darauf die Anwendung eines Inputs simulieren muss. Doch bereits mit den ersten Linux Tools wie grep und awk wurde dieses Vorgehen realisiert und die Welt war
+in Ordnung.
+
+=== Verlassen der regulären Sprachen
+
+Leider kamen später Autoren neuer Sprachstile auf die Idee auch neue Features in den regulären Ausdrücken zu verwenden.
+(Quelle: https://en.wikipedia.org/wiki/Regular_expression#Patterns_for_non-regular_languages[Patterns_for_non-regular_languages])
+
+==== backreferences
+
+Dazu zählen beispielsweise Rückwärtsreferenzen (backreferences). Teilausdrücke welche über Klammernpaare beschrieben und über
+spezielle Notationen referenziert werden können. Ein Beispiel aus
+link:https://swtch.com/~rsc/regexp/regexp1.html[Regular Expression Matching Can Be Simple And Fast(but is slow in Java, Perl, PHP, Python, Ruby, ...)].
+----
+(cat|dog)\1
+----
+Gültige Muster sind "catcat"´oder "dogdog" aber nicht "catdog" oder "dogcat".
+
+Diese Art der Muster werden in der formalen Sprachtheorie Quadrate (squares) genannt. Sie verlassen die Ausdrucksstärke
+der regulären Sprachen, sie sprengen auch den Raum der kontextfreien Sprachen und sind auf der Ebene der
+kontextsensitiven Sprachen vom Chomsky Typ-1 beheimatet:
+
+.Quelle: https://en.wikipedia.org/wiki/Regular_expression#Patterns_for_non-regular_languages[Patterns_for_non-regular_languages]
+[quote,https://en.wikipedia.org/wiki/Regular_expression#Patterns_for_non-regular_languages]
+The language of squares is not regular, nor is it context-free, due to the pumping lemma. However, pattern matching with an unbounded number of backreferences, as supported by numerous modern tools, is still context sensitive.link:https://en.wikipedia.org/wiki/Regular_expression#cite_note-38[[38\]] The general problem of matching any number of backreferences is NP-complete, and the execution time for known algorithms grows exponentially by the number of backreference groups used.link:https://en.wikipedia.org/wiki/Regular_expression#cite_note-39[[39\]]
+
+
+==== Assertions
+
+----
+^ $
+----
+
+Diese Erweiterungen sprengen ebenfalls den Raum der regulären Sprachen.
+
+=== Backtracking
+
+Da fast alle modernen Programmiersprachen auch die obigen Erweiterungen in regulären Ausdrücken unterstützen konnte zur
+Realisierung nicht mehr einfach ein DFA benutzt werden. Es wurden neue Lösungsmethoden benötigt und aktuell hat sich
+der Backtracking Algorithmus durchgesetzt. Dieser Algorithmus ist im besten Fall genauso schnell wie ein DFA meist aber
+langsamer und im schlimmsten Fall exponentiell langsamer. Eine Folge davon ist das "catastrophic-backtracking", welches
+aus der Sicht der IT-Sicherheit auch einen neuen Angriffsvektor darstellt.
+
+=== catastrophic-backtracking
+(Quelle: https://medium.com/bigpanda-engineering/catastrophic-backtracking-the-dark-side-of-regular-expressions-80cab9c443f6)
+
+Das Verfahren arbeitet einfach auf einem Zustandsautomaten der den regulären Ausdruck repräsentiert. Das Verfahren geht
+davon aus, dass es sich um einen NFA handelt, funktioniert aber natürlich auch mit einem DFA. Bei einem NFA kann in
+einem bestimmten Zustand abhängig vom Eingabezeichen nicht mehr genau ein Folgezustand ermittelt werden. Fortan gibt es
+mehrere Wege die durchschritten werden können, im Ergebnis aber nicht alle gültig sein müssen. Der Backtracking Algorithmus
+prüft nun zuerst einen Weg und falls dieser nicht zum akzeptieren des Inputs führt den anderen Weg. Da solche
+Entscheidungen oder Weggabeln sehr häufig auftreten können, wird ein rekursiver Algorithmus mit langer Laufzeit verwendet.
+
+Moderne Backtracking Algorithmen versuchen das Problem zu umgehen, indem diese alle Wege parallel weiter beschreiten und
+somit recht schnell zum kürzesten Weg und damit zum akzeptierten Eingabpfad kommen. Was natürlich nicht passiert, wenn
+der Input nicht auf den regulären Ausdruck passt.
+
+Bei der Implementierung der Backtracking Algorithmen scheint es noch keinen fundamentalen Durchbruch zu geben, so dass
+von der Realisierung her wenig Spielraum zur Verbesserung der Performance zu bestehen scheint.
+
+Die aus meiner Sicht beste Lösung besteht darin, bereits beim regulären Ausdruck darauf zu achten, dass die Feature
+welche die Mächtigkeit der regulären Sprachen sprengen, nach Möglichkeit nicht benutzt werden. Idealerweise führt der
+reguläre Ausdruck direkt zu einem DFA und sollte somit die Probleme des catastrophic-backtracking gar nicht erst
+aufkommen lassen.
+
+Dazu ein Beispiel aus der Praxis. Ein Programmierer möchte in Javascript eine Eingabe validieren und damit leere
+Eingaben verhindern. Er entscheidet sich nicht dafür den String per trim() zu bearbeiten und dann die Länge >0 zu
+prüfen, sondern für die Verwendung eines regulären Ausdruckes (Was aus meiner Sicht schon bedeutet mit Kanonen
+auf Spatzen zu schiessen aber in der Praxis scheinbar sehr gebräuchlich ist).
+
+Im ersten Versuch wird folgendes Pattern verwendet:
+----
+.*\S.*
+----
+(mit \S = any none-withespace und . = any char)
+
+Die Überführung des regulären Ausdruckes führt direkt zu einem NFA wie dem folgenden.
+
+[plantuml,"{generateddir}/FormelRegEx",svg]
+.resultierender NFA für den RegEx: ```.\*\S.*```
+----
+include::plantuml/RegexInvalid.plantuml[]
+----
+
+Hier wird sofort deutlich, dass im Zustand S1 bei einem non-withspace wie 'A' der Folgezustand nicht bestimmt werden
+kann. Demzufolge muss im ungünstigem Falle ein beschrittener Pfad verworfen und ein neuer Pfad geprüft werden.
+
+Im zweiten Versuch wird folgendes Pattern verwendet:
+----
+\s*\S.*
+----
+(mit \s = any withespace \S = any none-withespace und . = any char)
+
+Die Überführung des regulären Ausdruckes *kann* direkt zu einem DFA wie dem folgenden führen.
+
+[plantuml,"{generateddir}/FormelRegEx",svg]
+.resultierender DFA für den RegEx: ```\s*\S.*```
+----
+include::plantuml/RegexValid.plantuml[]
+----
+
+Bei diesem Automaten sollte der Backtracking Algorithmus durchlaufen ohne auch nur ein Zwischenergebnis verwerfen zu
+müssen. Von daher kann er im besten Falle genauso schnell werden wie andere Algorithmen welche auf DFAs basieren.
+
+Wie man sieht wurden einige wenige Features in "regulären" Ausdrücken eingeführt, für einen fraglichen Nutzen in
+Sonderfällen und unter Verlassen des Sprachraumes regulärer Sprachen ohne auch den Begriff der neuen Muster vom
+Begriff der regulären Ausdrücke abzugrenzen. Dies führte zu einer neuen Komplexität, da anderer Chomsky Typ, und zu
+aktuell noch ungelösten Problemen. Was aus meiner Sicht eine fatale Folge dieser Vorgehensweise ist. Dadurch werden
+Tätigkeiten die uns die Maschine seit Jahrzenten abgenommen hatte nun wieder an den Programmierer ausgelagert.
+
+Aus meiner Sicht definitiv ein Rückschritt. Ein Fortschritt wäre es aus meiner Sicht, wenn es als neues Konstrukt
+mit neuer Bezeichnung wie beispielsweise  RegexP oder ähnliches eingeführt wurden wäre ohne die alten Matcher abzuschaffen.
+Dann wäre es eine optional nutzbare Ergänzung und damit eine Bereicherung des Methodenkoffers für den Programmierer.
+So hätte er immernoch die alternative Möglichkeit die alten Matcher mit den optimalen Algorithmen zu nutzen.
+
+Wieder zum xref:4regex-statechart.adoc[Beispiel RegEx Statechart Builder]  oder zurück zur xref:index.adoc[Übersicht].
