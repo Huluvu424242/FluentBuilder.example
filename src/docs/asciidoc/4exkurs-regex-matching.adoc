@@ -80,7 +80,7 @@ Diese Erweiterungen sprengen ebenfalls den Raum der regulären Sprachen.
 
 === Backtracking
 
-Da fast alle modernen Programmiersprachen auch die obigen Erweiterungen in regulären Ausdrücken unterstützen konnte zur
+Da fast alle modernen Programmiersprachen auch die obigen Erweiterungen in regulären Ausdrücken unterstützen, konnte zur
 Realisierung nicht mehr einfach ein DFA benutzt werden. Es wurden neue Lösungsmethoden benötigt und aktuell hat sich
 der Backtracking Algorithmus durchgesetzt. Dieser Algorithmus ist im besten Fall genauso schnell wie ein DFA meist aber
 langsamer und im schlimmsten Fall exponentiell langsamer. Eine Folge davon ist das "catastrophic-backtracking", welches
