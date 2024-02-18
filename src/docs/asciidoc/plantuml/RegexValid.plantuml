@@ -1,4 +1,5 @@
 @startuml
+!pragma layout smetana
 [*] --> S1
 S1 -> S1 : \s (any whitespace)
 S1 --> S2 : \S (any none-withespace)
