@@ -158,4 +158,11 @@ mit neuer Bezeichnung wie beispielsweise  RegexP oder ähnliches eingeführt wur
 Dann wäre es eine optional nutzbare Ergänzung und damit eine Bereicherung des Methodenkoffers für den Programmierer.
 So hätte er immernoch die alternative Möglichkeit die alten Matcher mit den optimalen Algorithmen zu nutzen.
 
+=== Tools
+
+An dieser Stelle möchte ich noch ein sehr gutes Analyse Tool empfehlen:
+https://blog.robertelder.org/regular-expression-visualizer/
+
+Es ist in der Lage Schritt für Schritt die Arbeit des Backtracking Algorithmus zu visualisieren.
+
 Wieder zum xref:4regex-statechart.adoc[Beispiel RegEx Statechart Builder]  oder doch zurück zur xref:index.adoc[Übersicht].
