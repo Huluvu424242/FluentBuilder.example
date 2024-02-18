@@ -33,8 +33,8 @@ ausgehend einen Strom von Eingabezeichen auf den DFA anwendet, so werden dadurch
 Zustandsübergänge hervorgerufen. Wenn der Automat sich nach der Anwendung des letzten Eingabezeichens im finalen Zustand befindet, so spricht man davon, dass der Automat die Eingabe akzeptiert hat.
 
 In Bezug auf das Matching mit regulären Ausdrücken lässt sich daher sagen:
-Wird ein auf einen DFA (welcher einen regulären Ausdruck beschreibt) ein Input
-angewendet und der DFA akzeptiert diesen Input, so matcht die Eingabe mit dem
+Wird auf einen DFA (welcher einen regulären Ausdruck beschreibt) ein Input
+angewendet und der DFA akzeptiert diesen Input, so passt die Eingabe zum
 regulären Ausdruck.
 
 Demnach ist es in der Theorie sehr einfach herauszufinden ob ein Input einem
@@ -48,7 +48,7 @@ in Ordnung.
 
 === Verlassen der regulären Sprachen
 
-Leider kamen später Autoren neuer Sprachstile auf die Idee auch neue Features in den regulären Ausdrücken zu verwenden.
+Leider kamen spätere Autoren neuer Sprachstile auf die Idee auch neue Features in den regulären Ausdrücken zu verwenden.
 (Quelle: https://en.wikipedia.org/wiki/Regular_expression#Patterns_for_non-regular_languages[Patterns_for_non-regular_languages])
 
 ==== backreferences
