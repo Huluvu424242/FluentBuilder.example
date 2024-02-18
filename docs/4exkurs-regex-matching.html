@@ -494,8 +494,8 @@ Zustandsübergänge hervorgerufen. Wenn der Automat sich nach der Anwendung des 
 </div>
 <div class="paragraph">
 <p>In Bezug auf das Matching mit regulären Ausdrücken lässt sich daher sagen:
-Wird ein auf einen DFA (welcher einen regulären Ausdruck beschreibt) ein Input
-angewendet und der DFA akzeptiert diesen Input, so matcht die Eingabe mit dem
+Wird auf einen DFA (welcher einen regulären Ausdruck beschreibt) ein Input
+angewendet und der DFA akzeptiert diesen Input, so passt die Eingabe zum
 regulären Ausdruck.</p>
 </div>
 <div class="paragraph">
@@ -513,7 +513,7 @@ in Ordnung.</p>
 <div class="sect2">
 <h3 id="verlassen-der-regulären-sprachen"><a class="anchor" href="#verlassen-der-regulären-sprachen"></a>Verlassen der regulären Sprachen</h3>
 <div class="paragraph">
-<p>Leider kamen später Autoren neuer Sprachstile auf die Idee auch neue Features in den regulären Ausdrücken zu verwenden.
+<p>Leider kamen spätere Autoren neuer Sprachstile auf die Idee auch neue Features in den regulären Ausdrücken zu verwenden.
 (Quelle: <a href="https://en.wikipedia.org/wiki/Regular_expression#Patterns_for_non-regular_languages">Patterns_for_non-regular_languages</a>)</p>
 </div>
 <div class="sect3">
@@ -561,7 +561,7 @@ The language of squares is not regular, nor is it context-free, due to the pumpi
 <div class="sect2">
 <h3 id="backtracking"><a class="anchor" href="#backtracking"></a>Backtracking</h3>
 <div class="paragraph">
-<p>Da fast alle modernen Programmiersprachen auch die obigen Erweiterungen in regulären Ausdrücken unterstützen konnte zur
+<p>Da fast alle modernen Programmiersprachen auch die obigen Erweiterungen in regulären Ausdrücken unterstützen, konnte zur
 Realisierung nicht mehr einfach ein DFA benutzt werden. Es wurden neue Lösungsmethoden benötigt und aktuell hat sich
 der Backtracking Algorithmus durchgesetzt. Dieser Algorithmus ist im besten Fall genauso schnell wie ein DFA meist aber
 langsamer und im schlimmsten Fall exponentiell langsamer. Eine Folge davon ist das "catastrophic-backtracking", welches
@@ -618,7 +618,7 @@ auf Spatzen zu schiessen aber in der Praxis scheinbar sehr gebräuchlich ist).</
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/generated/FormelRegEx.svg" alt="FormelRegEx" width="303" height="206">
+<img src="./images/generated/RegexInvalid.svg" alt="RegexInvalid" width="303" height="206">
 </div>
 <div class="title">Figure 1. resultierender NFA für den RegEx: <code><code>.*\S.*</code></code></div>
 </div>
@@ -642,7 +642,7 @@ kann. Demzufolge muss im ungünstigem Falle ein beschrittener Pfad verworfen und
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="./images/generated/FormelRegEx.svg" alt="FormelRegEx" width="303" height="206">
+<img src="./images/generated/RegexValid.svg" alt="RegexValid" width="303" height="206">
 </div>
 <div class="title">Figure 2. resultierender DFA für den RegEx: <code><code>\s*\S.*</code></code></div>
 </div>
