@@ -121,7 +121,7 @@ Im ersten Versuch wird folgendes Pattern verwendet:
 
 Die Überführung des regulären Ausdruckes führt direkt zu einem NFA wie dem folgenden.
 
-[plantuml,"{generateddir}/FormelRegEx",svg]
+[plantuml,"{generateddir}/RegexInvalid",svg]
 .resultierender NFA für den RegEx: ```.\*\S.*```
 ----
 include::plantuml/RegexInvalid.plantuml[]
@@ -138,7 +138,7 @@ Im zweiten Versuch wird folgendes Pattern verwendet:
 
 Die Überführung des regulären Ausdruckes *kann* direkt zu einem DFA wie dem folgenden führen.
 
-[plantuml,"{generateddir}/FormelRegEx",svg]
+[plantuml,"{generateddir}/RegexValid",svg]
 .resultierender DFA für den RegEx: ```\s*\S.*```
 ----
 include::plantuml/RegexValid.plantuml[]
